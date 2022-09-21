@@ -20,6 +20,10 @@ body ul {
     list-style: none;
 }
 
+body a, body a:visited {
+    text-decoration: none;
+}
+
 header {
     background: var(--header-color);
     color: var(--very-light-text);
