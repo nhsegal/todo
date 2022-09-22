@@ -1,32 +1,35 @@
 "use strict";
 
+import { Task } from "./tasks";
+import { Project } from "./tasks";
 
+// Cache the DOM
 const addTaskBtn = document.querySelector("#add-a-task");
 const addTaskModal = document.querySelector("#add-a-task-modal");
-const closeModalButton = document.querySelectorAll(".close-modal-button");
+const closeModalButton = document.querySelector("#close-modal-button");
+const modalSubmitButton = document.querySelector("#modal-submit");
+const newTaskContent = document.querySelector("#task-content");
+const newTaskDate = document.querySelector("#date");
+const newTaskPriority = document.querySelectorAll('input[name=priority]');
 
-
-const toggleModal= () => {
-    /*
-    let title = document.getElementById('title');
-    title.value = '';
-    let author = document.getElementById('author');
-    author.value = '';
-    let pages = document.getElementById('pages');
-    pages.value = '';
-    let no = document.getElementById('no');
-    no.checked = false;
-    let reading = document.getElementById('reading');
-    reading.checked = false;
-    let yes = document.getElementById('yes');
-    yes.checked = false;
-    */
-    addTaskModal.toggle("show-modal");
+// Callback for create task submit
+const taskSubmit = function(e) {
+    e.preventDefault();
+   // console.log( newTaskContent.value );
+   // console.log( newTaskDate.value );
+    let newTaskPriorityValue = null;
+    for (const option of newTaskPriority) {
+        if (option.checked) {
+            newTaskPriorityValue = option.value;
+  //          console.log(option.value)
+        }
+    }
+    addTaskModal.classList.toggle("closed");
+    const newTask = new Task( newTaskDate.value, newTaskContent.value, newTaskPriorityValue);
+    console.log(newTask);
 }
 
-
-
-
-addTaskBtn.addEventListener("click", toggleModal);
-//addBookBtn.addEventListener("click", myLibrary.toggleModal);
-//closeModalButton.addEventListener("click", myLibrary.toggleModal);
+// Add eventlisteners
+addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed")});
+closeModalButton.addEventListener("click", ()=>{ addTaskModal.classList.toggle("closed")});
+modalSubmitButton.addEventListener("click", taskSubmit);

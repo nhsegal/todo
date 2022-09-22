@@ -68,20 +68,23 @@ main {
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 1;
     z-index: 1;
-    visibility: visible;
+    display: flex;
+}
+.modal.closed {
+    display: none;
 }
 
 .modal-content {
     position: absolute;
     top: 20%;
-    left: 50%;
+    left: 43%;
     background-color: var(--main-bg-color);
     padding: .5rem .5rem 0.5rem 0.5rem;
     border-radius: 0.5rem;
    
 }
 
-#taskForm {
+#task-form {
     text-align: right;
     gap: 7px;
     display: grid;
@@ -89,8 +92,11 @@ main {
     grid-template-rows: 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem;
 }
 
-#priority_options {
+#priority-options {
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1.3rem;
 }
 
 #modal-submit {
@@ -99,11 +105,11 @@ main {
     justify-self: center;
 }
 
-#task_content, #date {
+#task-content, #date {
     margin-right: 1rem;
 }
 
-.close-modal-button {
+#close-modal-button {
     font-size: 2rem;
     align-self: center;
 }
