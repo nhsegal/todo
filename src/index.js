@@ -2,34 +2,56 @@
 
 import { Task } from "./tasks";
 import { Project } from "./tasks";
+import { prepareDOM } from "./dom";
 
-// Cache the DOM
-const addTaskBtn = document.querySelector("#add-a-task");
-const addTaskModal = document.querySelector("#add-a-task-modal");
-const closeModalButton = document.querySelector("#close-modal-button");
-const modalSubmitButton = document.querySelector("#modal-submit");
-const newTaskContent = document.querySelector("#task-content");
-const newTaskDate = document.querySelector("#date");
-const newTaskPriority = document.querySelectorAll('input[name=priority]');
+prepareDOM();
 
-// Callback for create task submit
-const taskSubmit = function(e) {
-    e.preventDefault();
-   // console.log( newTaskContent.value );
-   // console.log( newTaskDate.value );
-    let newTaskPriorityValue = null;
-    for (const option of newTaskPriority) {
-        if (option.checked) {
-            newTaskPriorityValue = option.value;
-  //          console.log(option.value)
-        }
-    }
-    addTaskModal.classList.toggle("closed");
-    const newTask = new Task( newTaskDate.value, newTaskContent.value, newTaskPriorityValue);
-    console.log(newTask);
+const sampleTask = {
+    date: '2022-09-29', content: 'Finish Odin Project', completed: false, priority: 'normal', project: null
+    
 }
 
-// Add eventlisteners
-addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed")});
-closeModalButton.addEventListener("click", ()=>{ addTaskModal.classList.toggle("closed")});
-modalSubmitButton.addEventListener("click", taskSubmit);
+const sampleTask2 = {
+    date: '2022-09-30', content: 'Exercise', completed: true, priority: 'high', project: null
+    
+}
+
+
+function htmlFormat(task) {
+    const checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.name = "name";
+    checkbox.checked = task.completed;
+    checkbox.id = task.content;
+
+    const taskName = document.createElement("div");
+    taskName.classList.add('task-name');
+    taskName.textContent = task.content;
+
+    
+
+
+    /*
+    const taskDate = document.createElement("div");
+    taskDate.classList.add('task-date');
+    taskDate.textContent = task.date;
+    const taskPriority = document.createElement("div");
+    taskPriority.classList.add('task-priority');
+    taskPriority.textContent = task.priority;
+    */
+    const card = document.createElement("div");
+    card.classList.add('card');
+    if (task.priority == 'high') {
+        card.classList.add('important');
+    }
+    //card.setAttribute("data-id", );
+
+    //card.append(checkbox,taskName, taskDate, taskPriority);
+    
+    card.append(checkbox, taskName);
+    return (card)
+}
+const main = document.querySelector("main");
+main.append(htmlFormat(sampleTask));
+main.append(htmlFormat(sampleTask2));
+
