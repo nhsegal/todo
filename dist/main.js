@@ -1,54 +1,42 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 var __webpack_exports__ = {};
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-// Factory function to make task objects
-const taskMaker = (date, content, project = null) => {
-    let completed = false;
-    return {date, content, completed, project};
-};
-
-//Test taskMaker
-const date1 = new Date('November 1, 2022');
-const task1 = taskMaker(date1, 'clean the house');
-const task2 = taskMaker(date1, 'make the bed');
-const task3 = taskMaker(date1, 'walk the dog');
 
 
-// Factory function to make project objects
-const projectMaker = (content) => {
-    let tasks = [];
-    
-    // Later remove methods from project object and add to its prototype
-    const addTask = (task) => {
-        task.project = content;
-        tasks.push(task);
-    }
-    
-    const removeTask = (task) => {
-        task.project = null;
-        tasks = tasks.filter(task => task.project != null);
-    }
 
-    return {tasks, content, addTask, removeTask}
+const addTaskBtn = document.querySelector("#add-a-task");
+const addTaskModal = document.querySelector("#add-a-task-modal");
+const closeModalButton = document.querySelectorAll(".close-modal-button");
+
+
+const toggleModal= () => {
+    /*
+    let title = document.getElementById('title');
+    title.value = '';
+    let author = document.getElementById('author');
+    author.value = '';
+    let pages = document.getElementById('pages');
+    pages.value = '';
+    let no = document.getElementById('no');
+    no.checked = false;
+    let reading = document.getElementById('reading');
+    reading.checked = false;
+    let yes = document.getElementById('yes');
+    yes.checked = false;
+    */
+    addTaskModal.toggle("show-modal");
 }
 
-// Test projectMaker
-const project1 = projectMaker('chores');
-project1.addTask(task1);
-project1.addTask(task2);
-project1.addTask(task3);
 
-project1.removeTask(task1);
-//task1.project = null;
-//project1.tasks = project1.tasks.filter(task => task.project != null);
 
-//for (const item of project1.tasks) {
-//    console.log(item);
-//}
 
+addTaskBtn.addEventListener("click", toggleModal);
+//addBookBtn.addEventListener("click", myLibrary.toggleModal);
+//closeModalButton.addEventListener("click", myLibrary.toggleModal);
 
 /******/ })()
 ;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5qcyIsIm1hcHBpbmdzIjoiOzs7OztBQUFBO0FBQ0E7QUFDQTtBQUNBLFlBQVk7QUFDWjs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBLFlBQVk7QUFDWjs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQUVBO0FBQ0E7QUFDQTs7QUFFQTtBQUNBO0FBQ0EiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly90b2RvLy4vc3JjL2luZGV4LmpzIl0sInNvdXJjZXNDb250ZW50IjpbIi8vIEZhY3RvcnkgZnVuY3Rpb24gdG8gbWFrZSB0YXNrIG9iamVjdHNcbmNvbnN0IHRhc2tNYWtlciA9IChkYXRlLCBjb250ZW50LCBwcm9qZWN0ID0gbnVsbCkgPT4ge1xuICAgIGxldCBjb21wbGV0ZWQgPSBmYWxzZTtcbiAgICByZXR1cm4ge2RhdGUsIGNvbnRlbnQsIGNvbXBsZXRlZCwgcHJvamVjdH07XG59O1xuXG4vL1Rlc3QgdGFza01ha2VyXG5jb25zdCBkYXRlMSA9IG5ldyBEYXRlKCdOb3ZlbWJlciAxLCAyMDIyJyk7XG5jb25zdCB0YXNrMSA9IHRhc2tNYWtlcihkYXRlMSwgJ2NsZWFuIHRoZSBob3VzZScpO1xuY29uc3QgdGFzazIgPSB0YXNrTWFrZXIoZGF0ZTEsICdtYWtlIHRoZSBiZWQnKTtcbmNvbnN0IHRhc2szID0gdGFza01ha2VyKGRhdGUxLCAnd2FsayB0aGUgZG9nJyk7XG5cblxuLy8gRmFjdG9yeSBmdW5jdGlvbiB0byBtYWtlIHByb2plY3Qgb2JqZWN0c1xuY29uc3QgcHJvamVjdE1ha2VyID0gKGNvbnRlbnQpID0+IHtcbiAgICBsZXQgdGFza3MgPSBbXTtcbiAgICBcbiAgICAvLyBMYXRlciByZW1vdmUgbWV0aG9kcyBmcm9tIHByb2plY3Qgb2JqZWN0IGFuZCBhZGQgdG8gaXRzIHByb3RvdHlwZVxuICAgIGNvbnN0IGFkZFRhc2sgPSAodGFzaykgPT4ge1xuICAgICAgICB0YXNrLnByb2plY3QgPSBjb250ZW50O1xuICAgICAgICB0YXNrcy5wdXNoKHRhc2spO1xuICAgIH1cbiAgICBcbiAgICBjb25zdCByZW1vdmVUYXNrID0gKHRhc2spID0+IHtcbiAgICAgICAgdGFzay5wcm9qZWN0ID0gbnVsbDtcbiAgICAgICAgdGFza3MgPSB0YXNrcy5maWx0ZXIodGFzayA9PiB0YXNrLnByb2plY3QgIT0gbnVsbCk7XG4gICAgfVxuXG4gICAgcmV0dXJuIHt0YXNrcywgY29udGVudCwgYWRkVGFzaywgcmVtb3ZlVGFza31cbn1cblxuLy8gVGVzdCBwcm9qZWN0TWFrZXJcbmNvbnN0IHByb2plY3QxID0gcHJvamVjdE1ha2VyKCdjaG9yZXMnKTtcbnByb2plY3QxLmFkZFRhc2sodGFzazEpO1xucHJvamVjdDEuYWRkVGFzayh0YXNrMik7XG5wcm9qZWN0MS5hZGRUYXNrKHRhc2szKTtcblxucHJvamVjdDEucmVtb3ZlVGFzayh0YXNrMSk7XG4vL3Rhc2sxLnByb2plY3QgPSBudWxsO1xuLy9wcm9qZWN0MS50YXNrcyA9IHByb2plY3QxLnRhc2tzLmZpbHRlcih0YXNrID0+IHRhc2sucHJvamVjdCAhPSBudWxsKTtcblxuLy9mb3IgKGNvbnN0IGl0ZW0gb2YgcHJvamVjdDEudGFza3MpIHtcbi8vICAgIGNvbnNvbGUubG9nKGl0ZW0pO1xuLy99XG5cbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5qcyIsIm1hcHBpbmdzIjoiOzs7Ozs7QUFBYTs7O0FBR2I7QUFDQTtBQUNBOzs7QUFHQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7OztBQUtBO0FBQ0E7QUFDQSIsInNvdXJjZXMiOlsid2VicGFjazovL3RvZG8vLi9zcmMvaW5kZXguanMiXSwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2Ugc3RyaWN0XCI7XG5cblxuY29uc3QgYWRkVGFza0J0biA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIjYWRkLWEtdGFza1wiKTtcbmNvbnN0IGFkZFRhc2tNb2RhbCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIjYWRkLWEtdGFzay1tb2RhbFwiKTtcbmNvbnN0IGNsb3NlTW9kYWxCdXR0b24gPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKFwiLmNsb3NlLW1vZGFsLWJ1dHRvblwiKTtcblxuXG5jb25zdCB0b2dnbGVNb2RhbD0gKCkgPT4ge1xuICAgIC8qXG4gICAgbGV0IHRpdGxlID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3RpdGxlJyk7XG4gICAgdGl0bGUudmFsdWUgPSAnJztcbiAgICBsZXQgYXV0aG9yID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2F1dGhvcicpO1xuICAgIGF1dGhvci52YWx1ZSA9ICcnO1xuICAgIGxldCBwYWdlcyA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwYWdlcycpO1xuICAgIHBhZ2VzLnZhbHVlID0gJyc7XG4gICAgbGV0IG5vID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ25vJyk7XG4gICAgbm8uY2hlY2tlZCA9IGZhbHNlO1xuICAgIGxldCByZWFkaW5nID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3JlYWRpbmcnKTtcbiAgICByZWFkaW5nLmNoZWNrZWQgPSBmYWxzZTtcbiAgICBsZXQgeWVzID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3llcycpO1xuICAgIHllcy5jaGVja2VkID0gZmFsc2U7XG4gICAgKi9cbiAgICBhZGRUYXNrTW9kYWwudG9nZ2xlKFwic2hvdy1tb2RhbFwiKTtcbn1cblxuXG5cblxuYWRkVGFza0J0bi5hZGRFdmVudExpc3RlbmVyKFwiY2xpY2tcIiwgdG9nZ2xlTW9kYWwpO1xuLy9hZGRCb29rQnRuLmFkZEV2ZW50TGlzdGVuZXIoXCJjbGlja1wiLCBteUxpYnJhcnkudG9nZ2xlTW9kYWwpO1xuLy9jbG9zZU1vZGFsQnV0dG9uLmFkZEV2ZW50TGlzdGVuZXIoXCJjbGlja1wiLCBteUxpYnJhcnkudG9nZ2xlTW9kYWwpO1xuIl0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9
