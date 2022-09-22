@@ -57,3 +57,53 @@ main {
     display: flex;
     gap: 30px;
 }
+
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    z-index: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    background-color: var(--main-bg-color);
+    padding: .5rem .5rem 0.5rem 0.5rem;
+    border-radius: 0.5rem;
+   
+}
+
+#taskForm {
+    text-align: right;
+    gap: 7px;
+    display: grid;
+    grid-template-columns: 4rem 12rem;
+    grid-template-rows: 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+#priority_options {
+    text-align: center;
+}
+
+#modal-submit {
+    grid-column: 1 / 3;
+    width: 7rem;
+    justify-self: center;
+}
+
+#task_content, #date {
+    margin-right: 1rem;
+}
+
+.close-modal-button {
+    font-size: 2rem;
+    align-self: center;
+}

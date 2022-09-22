@@ -19,10 +19,6 @@
         <div>
             <button id="add-a-project">Add project</button>
         </div>
-       
-
-
-     
     </header>
     <section id="sidebar">
         <ul>
@@ -45,6 +41,30 @@
         Here we will display tasks
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita, repellat ex nobis blanditiis iste possimus impedit, voluptatum rem corporis, quia neque obcaecati corrupti itaque esse eaque vel deleniti hic quaerat.
     </main>
+    <div class="modal" id="add-a-task-modal">
+        <div class="modal-content">
+            
+            <form id="taskForm">
+                <div></div>
+                <div class="close-modal-button">&times;</div>
+                <label for="task_content">Task:</label>
+                <input type="text" id="task_content" name="task" required>
+                <label for="date">Due:</label>
+                <input type="date" id="date" name="date" required>
+                <div>
+                    Priority:
+                </div>
+                <div id="priority_options">
+                    <input type="radio" id="normal" name="priority" value="normal"  required>
+                    <label for="normal">Normal</label>
+               
+                    <input type="radio" id="high" name="priority" value="high"  required>
+                    <label for="high">High</label>      
+                </div>
+                <input type="submit" id="modal-submit" value="Submit">
+              </form>
+        </div>
+    </div>
     <script src="../src/index.js"></script>
 </body>
 </html>
