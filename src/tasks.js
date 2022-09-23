@@ -25,6 +25,12 @@ export class Task {
         const taskName = document.createElement("div");
         taskName.classList.add('task-name');
         taskName.textContent = this.content;
+
+        const taskDue = document.createElement("div");
+        taskDue.classList.add('task-due-date');
+        taskDue.textContent = `Due: ${this.date.toLocaleString('default', {weekday: 'short' })},
+           ${ this.date.toLocaleString('default', { month: 'short' })}. 
+            ${ this.date.getDate()} `  
     
         const editTask = function(e) {
             console.log(e.target);
@@ -44,7 +50,7 @@ export class Task {
         if (this.priority == 'high') {
             card.classList.add('important');
         } 
-        card.append(checkbox, taskName, editBtn, removeBtn);
+        card.append(checkbox, taskName, taskDue, editBtn, removeBtn);
         return (card)
     }
 

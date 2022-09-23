@@ -24,17 +24,17 @@ masterList.addTask(sampleTask5);
 masterList.addTask(sampleTask6);
 masterList.sortByDate();
 //masterList.removeTask(sampleTask3);
-console.log(sampleTask.project)
-masterList.editTask(sampleTask, 'project', 'coding');
-masterList.editTask(sampleTask5, 'project', 'coding');
-masterList.editTask(sampleTask6, 'project', 'coding');
+
+masterList.editTask(sampleTask, 'project', 'Coding');
+masterList.editTask(sampleTask5, 'project', 'Coding');
+masterList.editTask(sampleTask6, 'project', 'Coding');
 masterList.editTask(sampleTask3, 'completed', 'true');
 
-console.log(masterList);
+
 
 const main = document.querySelector("main");
 
 
-renderMain(masterList, main, 'byProject', 'coding');
+renderMain(masterList, main, 'byProject', 'Coding');
 
 

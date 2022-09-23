@@ -6,14 +6,16 @@ export function renderMain(masterList, main, option, projectName = null) {
     let todayGroup = null;
     switch(option) {
         case 'byProject':
-           
             const projectList = masterList.produceProjectList(projectName);
-            console.log(projectList);
+            const projectHeading = document.createElement("div");
+            projectHeading.classList.add('project-heading');
+            projectHeading.textContent = projectName;
+            main.append(projectHeading);
             for (let i = 0; i < projectList.length; i++){
                 if (projectList[i].date.getDate() == today.getDate() && projectList[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
                     todayGroup = 1;
                     const todayHeading = document.createElement("div");
-                    todayHeading.classList.add('heading');
+                    todayHeading.classList.add('subheading');
                     todayHeading.textContent = 'Today';
                     main.append(todayHeading);
                 }; 
