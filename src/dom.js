@@ -1,7 +1,7 @@
 "use strict";
 
 import { Task } from "./tasks";
-import { Project } from "./tasks";
+//import { Project } from "./tasks";
 
 export function prepareDOM (){
     // Cache the DOM
@@ -13,8 +13,6 @@ export function prepareDOM (){
     const newTaskDate = document.querySelector("#date");
     const newTaskPriority = document.querySelectorAll('input[name=priority]');
    
-
-
 
     // Arrays for events
     const taskList = [];
