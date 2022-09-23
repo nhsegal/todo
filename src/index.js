@@ -18,34 +18,34 @@ masterList.addTask(sampleTask);
 masterList.addTask(sampleTask2);
 masterList.addTask(sampleTask3);
 masterList.addTask(sampleTask4);
-
-masterList.removeTask(sampleTask3);
 masterList.sortByDate();
-//masterList.sort((a,b) => a.date - b.date);
-console.log(masterList);
+//masterList.removeTask(sampleTask3);
+
+//masterList.editTask(sampleTask);
+
+
 const main = document.querySelector("main");
-
-
 
 function renderMain() {
     let today = new Date();
     let todayGroup = null;
-    for (let i = 0; i < masterList.length; i++){
-        if (masterList[i].date.getDate() == today.getDate() && masterList[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
+    for (let i = 0; i < masterList.data.length; i++){
+        if (masterList.data[i].date.getDate() == today.getDate() && masterList.data[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
             todayGroup = 1;
             const todayHeading = document.createElement("div");
             todayHeading.classList.add('heading');
             todayHeading.textContent = 'Today';
             main.append(todayHeading);
+         
         }; 
 
-        if ((masterList[i].date.getDate() != today.getDate() && todayGroup == 1) ||  (masterList[i].date.getMonth() != today.getMonth() && todayGroup == 1) ) {
+        if ((masterList.data[i].date.getDate() != today.getDate() && todayGroup == 1) ||  (masterList.data[i].date.getMonth() != today.getMonth() && todayGroup == 1) ) {
             todayGroup = null;
             const lineBreak = document.createElement('hr');
             main.append(lineBreak);
         }; 
 
-        main.append(masterList[i].htmlFormat());
+        main.append(masterList.data[i].htmlFormat());
     }
    
 }

@@ -1,37 +1,40 @@
 "use strict";
 
+
+
 // Constructor to make task objects
 export class MasterList {
     constructor() { 
-       this.list = [];
+       this.data = [];
     }
 
     addTask(task) {
-        this.list.push.call(this,task);
+        this.data.push(task);
     }
 
     removeTask(task) {
         let tempArr = [];
-        while (this.list.indexOf.call(this,task) > -1) {
-            tempArr.push(this.list.pop.bind(this)());
+        while (this.data.indexOf(task) > -1) {
+            tempArr.push(this.data.pop());
         }
         tempArr.pop();
         while (tempArr.length) {
-            this.list.push.call(this, tempArr.pop());
+            this.data.push(tempArr.pop());
         }
-       
     }
 
-    editTask(task) {
-
+    editTask(task, attribute, value) {
+        this.data[this.data.indexOf(task)].attribute = value; 
     }
 
     sortByDate() {
-        this.list.sort.call(this ,(a,b) => a.date - b.date);
+        this.data.sort((a,b) => a.date - b.date);
+        console.log(this.data);
     }
 
-    produceProjectList() {
-
+    produceProjectList(project) {
+        const projectList = this.data.filter.call(this, (task) => task.project == project);
+        return projectList
     }
 
 }
