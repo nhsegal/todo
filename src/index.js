@@ -3,6 +3,7 @@
 import { Task } from "./tasks";
 //import { Project } from "./tasks";
 import { prepareDOM } from "./dom";
+import { MasterList } from "./masterList";
 
 
 prepareDOM();
@@ -12,13 +13,16 @@ const sampleTask2 = new Task( '2022-09-23', 'Practice Kung fu', 'high' );
 const sampleTask3 = new Task( '2022-09-23', 'Cook a pie', 'normal' );
 const sampleTask4 = new Task( '2022-09-29', 'Sleep', 'high' );
 
-const masterList = [];
-masterList.push(sampleTask);
-masterList.push(sampleTask2);
-masterList.push(sampleTask3);
-masterList.push(sampleTask4);
-masterList.sort((a,b) => a.date - b.date);
+const masterList = new MasterList;
+masterList.addTask(sampleTask);
+masterList.addTask(sampleTask2);
+masterList.addTask(sampleTask3);
+masterList.addTask(sampleTask4);
 
+masterList.removeTask(sampleTask3);
+masterList.sortByDate();
+//masterList.sort((a,b) => a.date - b.date);
+console.log(masterList);
 const main = document.querySelector("main");
 
 
@@ -48,3 +52,5 @@ function renderMain() {
 
 
 renderMain();
+
+
