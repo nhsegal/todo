@@ -24,7 +24,7 @@ export class MasterList {
     }
 
     editTask(task, attribute, value) {
-        this.data[this.data.indexOf(task)].attribute = value; 
+        this.data[this.data.indexOf(task)][attribute] = value; 
     }
 
     sortByDate() {
@@ -33,8 +33,9 @@ export class MasterList {
     }
 
     produceProjectList(project) {
-        const projectList = this.data.filter.call(this, (task) => task.project == project);
-        return projectList
+        const projectList = this.data.filter( (task) => task.project == project);
+        projectList.sort((a,b) => a.date - b.date);
+        return projectList;
     }
 
 }

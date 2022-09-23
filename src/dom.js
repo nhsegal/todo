@@ -1,7 +1,6 @@
 "use strict";
 
 import { Task } from "./tasks";
-//import { Project } from "./tasks";
 
 export function prepareDOM (){
     // Cache the DOM

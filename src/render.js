@@ -1,34 +1,59 @@
 "use strict"
 
-export function htmlFormat(task) {
-    const checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
-    checkbox.name = "name";
-    checkbox.checked = task.completed;
-    checkbox.id = task.content;
 
-    const taskName = document.createElement("div");
-    taskName.classList.add('task-name');
-    taskName.textContent = task.content;
+export function renderMain(masterList, main, option, projectName = null) {
+    let today = new Date();
+    let todayGroup = null;
+    switch(option) {
+        case 'byProject':
+           
+            const projectList = masterList.produceProjectList(projectName);
+            console.log(projectList);
+            for (let i = 0; i < projectList.length; i++){
+                if (projectList[i].date.getDate() == today.getDate() && projectList[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
+                    todayGroup = 1;
+                    const todayHeading = document.createElement("div");
+                    todayHeading.classList.add('heading');
+                    todayHeading.textContent = 'Today';
+                    main.append(todayHeading);
+                }; 
+                if (( projectList[i].date.getDate() != today.getDate() && todayGroup == 1 ) || ( projectList[i].date.getMonth() != today.getMonth() && todayGroup == 1 ))  {
+                    todayGroup = null;
+                    const lineBreak = document.createElement('hr');
+                    main.append(lineBreak);
+                }; 
+                main.append(projectList[i].htmlFormat());
+            }
 
-    const editTask = function(e) {
-        console.log(e.target);
-    }
+            break;
+        
+        case 'today':
+            break;
 
-    const editBtn = document.createElement("button");
-    editBtn.classList.add('edit-task');
-    editBtn.textContent = 'edit';
-    editBtn.addEventListener("click", editTask);
+        case 'thisWeek':
+            break;
+        
+        default:
+            
+            for (let i = 0; i < masterList.data.length; i++){
+                if (masterList.data[i].date.getDate() == today.getDate() && masterList.data[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
+                    todayGroup = 1;
+                    const todayHeading = document.createElement("div");
+                    todayHeading.classList.add('heading');
+                    todayHeading.textContent = 'Today';
+                    main.append(todayHeading);
+                }; 
+        
+                if ((masterList.data[i].date.getDate() != today.getDate() && todayGroup == 1) ||  (masterList.data[i].date.getMonth() != today.getMonth() && todayGroup == 1) ) {
+                    todayGroup = null;
+                    const lineBreak = document.createElement('hr');
+                    main.append(lineBreak);
+                }; 
+                main.append(masterList.data[i].htmlFormat());
+            }
 
-    const removeBtn = document.createElement("button");
-    removeBtn.classList.add('remove-task');
-    removeBtn.textContent = 'remove';
 
-    const card = document.createElement("div");
-    card.classList.add('card');
-    if (task.priority == 'high') {
-        card.classList.add('important');
     } 
-    card.append(checkbox, taskName, editBtn, removeBtn);
-    return (card)
+   
+   
 }
