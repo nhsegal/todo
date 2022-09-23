@@ -9,10 +9,7 @@
 </head>
 <body>
     <header>
-        <div>
-            <input type="search" id="site-search" name="q" placeholder="search">
-            <button>Search</button>
-        </div>
+      
         <div>
             <button id="add-a-task">Add task</button>
         </div>
@@ -21,14 +18,15 @@
         </div>
     </header>
     <section id="sidebar">
+        Upcoming Tasks
         <ul>
             <li><a href="#">Today</a></li>
             <li><a href="#">This Week</a></li>
             <li><a href="#">All</a></li>
-            <li><a href="#" id="tasks"><img src="imgs/task.svg" alt="task icon"></a><a href="#">Tasks</a></li>
+            <li><a href="#" id="tasks"><a href="#">Tasks</a></li>
         </ul>
 
-        Projects
+        By Project
         <ul>
             <li><a href="#">Build website</a></li>
             <li><a href="#">Karate</a></li>
@@ -39,7 +37,7 @@
     <main>
 
     </main>
-    <div class="modal" id="add-a-task-modal">
+    <div class="modal closed" id="add-a-task-modal">
         <div class="modal-content">
             
             <form id="task-form">
