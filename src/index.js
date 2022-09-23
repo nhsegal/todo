@@ -8,6 +8,12 @@ import { renderMain } from "./render";
 
 prepareDOM();
 
+const todaysTasks = document.querySelector("#todays-tasks");
+todaysTasks.addEventListener("click", function(){renderMain(masterList, main, 'today')});
+
+const allTasks = document.querySelector("#all-tasks");
+allTasks.addEventListener("click", function(){renderMain(masterList, main, 'all')});
+
 const sampleTask = new Task( '2022-09-23', 'Finish Odin Project', 'normal' );
 const sampleTask2 = new Task( '2022-09-23', 'Practice Kung fu', 'high' );
 const sampleTask3 = new Task( '2022-09-23', 'Cook a pie', 'normal' );

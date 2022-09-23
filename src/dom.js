@@ -1,6 +1,8 @@
 "use strict";
 
-import { Task } from "./tasks";
+import { MasterList } from "./masterList";
+import { Task } from "./tasks"; 
+import { renderMain } from "./render";
 
 export function prepareDOM (){
     // Cache the DOM
@@ -11,6 +13,8 @@ export function prepareDOM (){
     const newTaskContent = document.querySelector("#task-content");
     const newTaskDate = document.querySelector("#date");
     const newTaskPriority = document.querySelectorAll('input[name=priority]');
+
+    
    
 
     // Arrays for events
@@ -32,7 +36,8 @@ export function prepareDOM (){
     }
 
     // Add eventlisteners
-    addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed")});
-    closeModalButton.addEventListener("click", ()=>{ addTaskModal.classList.toggle("closed")});
+    addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
+    closeModalButton.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
     modalSubmitButton.addEventListener("click", taskSubmit);
+   
 }

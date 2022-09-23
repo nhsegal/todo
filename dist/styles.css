@@ -80,17 +80,14 @@ main {
     font-weight: 900;
 }
 
-.heading {
-    font-size: 2rem;
-    padding-left: 1rem;
-}
+
 
 hr {
     border: .5px solid rgb(100,100,100);
     width: 90%;
 }
 
-.project-heading {
+.heading {
     align-self: center;
     font-size: 2rem;
 }

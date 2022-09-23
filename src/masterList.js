@@ -29,7 +29,6 @@ export class MasterList {
 
     sortByDate() {
         this.data.sort((a,b) => a.date - b.date);
-        console.log(this.data);
     }
 
     produceProjectList(project) {
