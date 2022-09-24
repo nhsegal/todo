@@ -127,15 +127,19 @@ hr {
     text-align: right;
     gap: 7px;
     display: grid;
-    grid-template-columns: 4rem 12rem;
-    grid-template-rows: 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem;
+    grid-template-columns: 11rem 12rem;
+    grid-template-rows: 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+#task-form input[type="text"], #task-form input[type="date"],  #task-form select{
+    margin-right: 2rem;
 }
 
 #priority-options {
     text-align: center;
     display: flex;
     justify-content: space-between;
-    padding-right: 1.3rem;
+    padding-right: 2rem;
 }
 
 #modal-submit {
@@ -144,9 +148,7 @@ hr {
     justify-self: center;
 }
 
-#task-content, #date {
-    margin-right: 1rem;
-}
+
 
 #close-modal-button {
     font-size: 2rem;
