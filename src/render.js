@@ -1,6 +1,7 @@
 "use strict"
 
-
+// Complete the "week" option. Add a "Past Due" category
+// Maybe the sidebar should be radio buttons 
 export function renderMain(masterList, main, option, projectName = null) {
     let today = new Date();
     let todayGroup = null;
@@ -11,7 +12,6 @@ export function renderMain(masterList, main, option, projectName = null) {
     console.log(option)
 
     switch(option) {
-       
         case 'byProject':
             const projectList = masterList.produceProjectList(projectName);
             const projectHeading = document.createElement("div");
@@ -33,11 +33,9 @@ export function renderMain(masterList, main, option, projectName = null) {
                 }; 
                 main.append(projectList[i].htmlFormat());
             }
-
             return;
         
         case 'today':
-            
             for (let i = 0; i < masterList.data.length; i++){
                 if (masterList.data[i].date.getDate() == today.getDate() && masterList.data[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
                     todayGroup = 1;
@@ -84,6 +82,8 @@ export function renderMain(masterList, main, option, projectName = null) {
     }
 }
 
+// Modify renderAddTasksModal to accept an array of projectNames after someDiv 
+// and use this array as the select options
 export function renderAddTaskModal(someDiv) {
     console.log('rendering modal')
     const addTaskModal = document.createElement("div");
@@ -126,7 +126,7 @@ export function renderAddTaskModal(someDiv) {
     date.required = true;
 
     const priorityTitle = document.createElement("div");
-    priorityTitle.textContent = 'Priority';
+    priorityTitle.textContent = 'Priority:';
 
     const priorityOptions = document.createElement("div");
     priorityOptions.id = 'priority-options';
@@ -157,30 +157,29 @@ export function renderAddTaskModal(someDiv) {
 
     const assignToProjectLabel = document.createElement("label");
     assignToProjectLabel.for = "project";
-    assignToProjectLabel.textContent = "Assign to a project:"
+    assignToProjectLabel.textContent = "Project:"
 
-    const assignToProject = document.createElement("select");
+    const assignToProject = document.createElement("input");
     assignToProject.name = "project";
     assignToProject.id = "project";
+    assignToProject.placeholder = "Optional"
+    assignToProject.setAttribute("list", "project-list");
 
+    const assignToProjectDataList = document.createElement("datalist");
+    assignToProjectDataList.id = "project-list";
+   
     const projectOption1 = document.createElement("option");
-    projectOption1.value = "";
-    projectOption1.selected = true;
-    projectOption1.hidden = true;
-    projectOption1.textContent = "Choose here"; 
+    projectOption1.value = "Coding";
+    projectOption1.textContent = "Coding"; 
 
-    const projectOption2 = document.createElement("option");
-    projectOption2.value = "Coding";
-    projectOption2.textContent = "Coding"; 
-
-    assignToProject.append(projectOption1, projectOption2);
+    assignToProjectDataList.append(projectOption1);
+    assignToProject.append(assignToProjectDataList);
 
     const submitBtn = document.createElement("button");
     submitBtn.type = "submit";
     submitBtn.id = "modal-submit";
     submitBtn.value = "Submit";
     submitBtn.textContent = "Submit";
-
 
     option1.append(normalRadio, normalRadioLabel);
     option2.append(highRadio, highRadioLabel);
@@ -203,6 +202,6 @@ export function renderAddTaskModal(someDiv) {
 }
 
 
-export function renderSideBar() {
+export function renderSideBar(arrayOfProjectNames) {
     
 }
