@@ -3,10 +3,10 @@
 import { Task } from "./tasks";
 import { prepareDOM } from "./dom";
 import { MasterList } from "./masterList";
-import { renderMain } from "./render";
+import { renderMain, renderAddTaskModal } from "./render";
 
 
-prepareDOM();
+
 
 const todaysTasks = document.querySelector("#todays-tasks");
 todaysTasks.addEventListener("click", function(){renderMain(masterList, main, 'today')});
@@ -39,8 +39,10 @@ masterList.editTask(sampleTask3, 'completed', 'true');
 
 
 const main = document.querySelector("main");
+const addDiv = document.querySelector("#for-add-task-modal");
 
-
+renderAddTaskModal(addDiv);
+prepareDOM();
 renderMain(masterList, main, 'byProject', 'Coding');
 
 

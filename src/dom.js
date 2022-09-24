@@ -5,13 +5,6 @@ import { Task } from "./tasks";
 import { renderMain } from "./render";
 
 export function prepareDOM (){
-    // Make the add-a-task modal
-    const makeAddATaskModal = function() {
-        const main = document.querySelector("main");
-        const 
-        .append();
-    }
-
     // Cache the DOM
     const addTaskBtn = document.querySelector("#add-a-task");
     const addTaskModal = document.querySelector("#add-a-task-modal");
@@ -40,7 +33,7 @@ export function prepareDOM (){
     }
 
     // Add eventlisteners
-    addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
+    addTaskBtn.addEventListener("click", () => { console.log('here'); addTaskModal.classList.toggle("closed") });
     closeModalButton.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
     modalSubmitButton.addEventListener("click", taskSubmit);
    
