@@ -4,7 +4,17 @@
 // Maybe the sidebar should be radio buttons 
 export function renderMain(masterList, main, option, projectName = null) {
     let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    let weekFromToday= new Date(today);
+    weekFromToday.setDate(tomorrow.getDate() + 7);
+
     let todayGroup = null;
+    let pastDue = null;
+    let weekGroup = null;
+
     // First remove everything from main
     while (main.firstChild) {
         main.removeChild(main.firstChild);
@@ -19,14 +29,14 @@ export function renderMain(masterList, main, option, projectName = null) {
             projectHeading.textContent = projectName;
             main.append(projectHeading);
             for (let i = 0; i < projectList.length; i++){
-                if (projectList[i].date.getDate() == today.getDate() && projectList[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
+                if (projectList[i].date >= today && projectList[i].date <= today && todayGroup == null) {
                     todayGroup = 1;
                     const todayHeading = document.createElement("div");
                     todayHeading.classList.add('subheading');
                     todayHeading.textContent = 'Today';
                     main.append(todayHeading);
                 }; 
-                if (( projectList[i].date.getDate() != today.getDate() && todayGroup == 1 ) || ( projectList[i].date.getMonth() != today.getMonth() && todayGroup == 1 ))  {
+                if (projectList[i].date > today && todayGroup == 1)  {
                     todayGroup = null;
                     const lineBreak = document.createElement('hr');
                     main.append(lineBreak);
@@ -37,16 +47,29 @@ export function renderMain(masterList, main, option, projectName = null) {
         
         case 'today':
             for (let i = 0; i < masterList.data.length; i++){
-                if (masterList.data[i].date.getDate() == today.getDate() && masterList.data[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
+                if (masterList.data[i].date < today  && pastDue == null ) {
+                    pastDue = 1;
+                    const pastDueHeading = document.createElement("div");
+                    pastDueHeading.classList.add('heading');
+                    pastDueHeading.textContent = 'Past Due';
+                    main.append(pastDueHeading);
+                }; 
+        
+                if (masterList.data[i].date >= today && pastDue == 1) {
+                    pastDue = null;
+                    const lineBreak = document.createElement('hr');
+                    main.append(lineBreak);
+                }; 
+
+                if (masterList.data[i].date >= today && todayGroup == null) {
                     todayGroup = 1;
                     const todayHeading = document.createElement("div");
                     todayHeading.classList.add('heading');
                     todayHeading.textContent = 'Today';
                     main.append(todayHeading);
                 }; 
-        
-                if ((masterList.data[i].date.getDate() != today.getDate()) ||  (masterList.data[i].date.getMonth() != today.getMonth()) ) {
-                 
+
+                if (masterList.data[i].date > tomorrow) {
                     return;
                 }; 
             
@@ -58,26 +81,39 @@ export function renderMain(masterList, main, option, projectName = null) {
             break;
         
         default:
-            console.log('there')
             for (let i = 0; i < masterList.data.length; i++){
-                if (masterList.data[i].date.getDate() == today.getDate() && masterList.data[i].date.getMonth() == today.getMonth() && todayGroup == null ) {
+                if (masterList.data[i].date < today  && pastDue == null ) {
+                    pastDue = 1;
+                    const pastDueHeading = document.createElement("div");
+                    pastDueHeading.classList.add('heading');
+                    pastDueHeading.textContent = 'Past Due';
+                    main.append(pastDueHeading);
+                }; 
+        
+                if (masterList.data[i].date >= today && pastDue == 1) {
+                    pastDue = null;
+                    const lineBreak = document.createElement('hr');
+                    main.append(lineBreak);
+                }; 
+
+                if (masterList.data[i].date >= today && todayGroup == null) {
                     todayGroup = 1;
                     const todayHeading = document.createElement("div");
                     todayHeading.classList.add('heading');
                     todayHeading.textContent = 'Today';
                     main.append(todayHeading);
                 }; 
-        
-                if ((masterList.data[i].date.getDate() != today.getDate() && todayGroup == 1) ||  (masterList.data[i].date.getMonth() != today.getMonth() && todayGroup == 1) ) {
-                    todayGroup = null;
+
+                if (masterList.data[i].date >= tomorrow && todayGroup == 1) {
+                    todayGroup = 2;
                     const lineBreak = document.createElement('hr');
                     main.append(lineBreak);
                 }; 
-                main.append(masterList.data[i].htmlFormat());
+
+        
             
-
-
-            } 
+                main.append(masterList.data[i].htmlFormat());
+            }
             return
     }
 }
@@ -245,13 +281,3 @@ export function renderHeader(someDiv) {
     someDiv.prepend(header);
 }
 
-/*
-<header>
-<div>
-    <button id="add-a-task">Add task</button>
-</div>
-<div>
-    <button id="add-a-project">Add project</button>
-</div>
-</header>
-*/

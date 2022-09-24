@@ -6,15 +6,16 @@ import { MasterList } from "./masterList";
 import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 
 
+const body = document.querySelector("body");
 
 const main = document.querySelector("main");
 const side = document.querySelector("#sidebarContainer");
 const addDiv = document.querySelector("#for-add-task-modal");
 
-renderHeader(document.querySelector("body"));
-renderAddTaskModal(addDiv);
-renderSideBar(side);
-//prepareDOM();
+renderHeader(body);
+renderAddTaskModal(body);
+renderSideBar(body);
+prepareDOM();
 
 
 const todaysTasks = document.querySelector("#todays-tasks");
@@ -25,9 +26,9 @@ allTasks.addEventListener("click", function(){renderMain(masterList, main, 'all'
 
 const sampleTask = new Task( '2022-09-23', 'Finish Odin Project', 'normal' );
 const sampleTask2 = new Task( '2022-09-23', 'Practice Kung fu', 'high' );
-const sampleTask3 = new Task( '2022-09-23', 'Cook a pie', 'normal' );
+const sampleTask3 = new Task( '2022-09-25', 'Cook a pie', 'normal' );
 const sampleTask4 = new Task( '2022-09-29', 'Sleep', 'high' );
-const sampleTask5 = new Task( '2022-09-23', 'Learn Ruby', 'normal' );
+const sampleTask5 = new Task( '2022-09-25', 'Learn Ruby', 'normal' );
 const sampleTask6 = new Task( '2022-09-26', 'Code Tetris', 'high' );
 
 const masterList = new MasterList;
