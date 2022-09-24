@@ -5,6 +5,13 @@ import { Task } from "./tasks";
 import { renderMain } from "./render";
 
 export function prepareDOM (){
+    // Make the add-a-task modal
+    const makeAddATaskModal = function() {
+        const main = document.querySelector("main");
+        const 
+        .append();
+    }
+
     // Cache the DOM
     const addTaskBtn = document.querySelector("#add-a-task");
     const addTaskModal = document.querySelector("#add-a-task-modal");
@@ -13,9 +20,6 @@ export function prepareDOM (){
     const newTaskContent = document.querySelector("#task-content");
     const newTaskDate = document.querySelector("#date");
     const newTaskPriority = document.querySelectorAll('input[name=priority]');
-
-    
-   
 
     // Arrays for events
     const taskList = [];

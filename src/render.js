@@ -83,3 +83,11 @@ export function renderMain(masterList, main, option, projectName = null) {
             return
     }
 }
+
+export function renderAddTaskModal() {
+
+}
+
+export function renderSideBar() {
+    
+}
