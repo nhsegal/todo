@@ -30,11 +30,19 @@ header {
     display: flex;
     grid-template-columns: 1fr 1fr;;
     grid-template-rows: 3rem;
-    padding: 15px 10px 25px;
-    justify-content: space-between;
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
     margin-top: 0px;
-    height: 1rem;
+    height: 2rem;
 }
+
+#add-a-task {
+    height: 2.5rem;
+    width: 10rem;
+    font-size: 1.5rem;
+}
+
 
 #sidebar {
     background: var(--sidebar-color);
@@ -80,15 +88,13 @@ main {
     font-weight: 900;
 }
 
-
-
 hr {
     border: .5px solid rgb(100,100,100);
     width: 90%;
 }
 
 .heading {
-    align-self: center;
+    padding-left: 2rem;
     font-size: 2rem;
 }
 
