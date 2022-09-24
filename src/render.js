@@ -85,9 +85,7 @@ export function renderMain(masterList, main, option, projectName = null) {
 // Modify renderAddTasksModal to accept an array of projectNames after someDiv 
 // and use this array as the select options
 export function renderAddTaskModal(someDiv) {
-    console.log('rendering modal')
     const addTaskModal = document.createElement("div");
-
     addTaskModal.classList.add('modal');
     addTaskModal.classList.add('closed');
     addTaskModal.id = 'add-a-task-modal';
@@ -201,7 +199,59 @@ export function renderAddTaskModal(someDiv) {
     someDiv.append(addTaskModal);
 }
 
+//export function renderSideBar(arrayOfProjectNames)
+export function renderSideBar(someDiv) {
+    const sidebarSection = document.createElement("section");
+    sidebarSection.id = 'sidebar';
+    sidebarSection.textContent = "Upcoming Tasks";
 
-export function renderSideBar(arrayOfProjectNames) {
+    const listByTime = document.createElement('ul');
     
+    const listItem1 = document.createElement('li');
+    const item1Anchor = document.createElement('a');
+    item1Anchor.id = 'todays-tasks';
+    item1Anchor.href = '#';
+    item1Anchor.textContent = "Today";
+    listItem1.append(item1Anchor);
+
+    const listItem2 = document.createElement('li');
+    const item2Anchor = document.createElement('a');
+    item2Anchor.id = 'this-week';
+    item2Anchor.href = '#';
+    item2Anchor.textContent = "This Week";
+    listItem2.append(item2Anchor);
+    
+    const listItem3 = document.createElement('li');
+    const item3Anchor = document.createElement('a');
+    item3Anchor.id = 'all-tasks';
+    item3Anchor.href = '#';
+    item3Anchor.textContent = "All";
+    listItem3.append(item3Anchor);
+
+    listByTime.append(listItem1, listItem2, listItem3);
+
+    //How to add By Project?
+
+    sidebarSection.append(listByTime);
+    someDiv.append(sidebarSection);
 }
+
+export function renderHeader(someDiv) {
+    const header = document.createElement("header");
+    const addTaskBtn = document.createElement("button");
+    addTaskBtn.id = "add-a-task";
+    addTaskBtn.textContent = "Add Task";
+    header.append(addTaskBtn);
+    someDiv.prepend(header);
+}
+
+/*
+<header>
+<div>
+    <button id="add-a-task">Add task</button>
+</div>
+<div>
+    <button id="add-a-project">Add project</button>
+</div>
+</header>
+*/

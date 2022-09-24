@@ -3,9 +3,18 @@
 import { Task } from "./tasks";
 import { prepareDOM } from "./dom";
 import { MasterList } from "./masterList";
-import { renderMain, renderAddTaskModal } from "./render";
+import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 
 
+
+const main = document.querySelector("main");
+const side = document.querySelector("#sidebarContainer");
+const addDiv = document.querySelector("#for-add-task-modal");
+
+renderHeader(document.querySelector("body"));
+renderAddTaskModal(addDiv);
+renderSideBar(side);
+//prepareDOM();
 
 
 const todaysTasks = document.querySelector("#todays-tasks");
@@ -35,14 +44,8 @@ masterList.editTask(sampleTask, 'project', 'Coding');
 masterList.editTask(sampleTask5, 'project', 'Coding');
 masterList.editTask(sampleTask6, 'project', 'Coding');
 masterList.editTask(sampleTask3, 'completed', 'true');
-
-
-
-const main = document.querySelector("main");
-const addDiv = document.querySelector("#for-add-task-modal");
-
-renderAddTaskModal(addDiv);
-prepareDOM();
 renderMain(masterList, main, 'byProject', 'Coding');
+
+
 
 
