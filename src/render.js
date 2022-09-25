@@ -9,7 +9,7 @@ export function renderMain(masterList, main, option, projectName = null) {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     let weekFromToday= new Date(today);
-    weekFromToday.setDate(tomorrow.getDate() + 7);
+    weekFromToday.setDate(today.getDate() + 7);
 
     let todayGroup = null;
     let pastDue = null;
@@ -20,101 +20,92 @@ export function renderMain(masterList, main, option, projectName = null) {
         main.removeChild(main.firstChild);
     }
     console.log(option)
-
-    switch(option) {
-        case 'byProject':
-            const projectList = masterList.produceProjectList(projectName);
-            const projectHeading = document.createElement("div");
-            projectHeading.classList.add('heading');
-            projectHeading.textContent = projectName;
-            main.append(projectHeading);
-            for (let i = 0; i < projectList.length; i++){
-                if (projectList[i].date >= today && projectList[i].date <= today && todayGroup == null) {
-                    todayGroup = 1;
-                    const todayHeading = document.createElement("div");
-                    todayHeading.classList.add('subheading');
-                    todayHeading.textContent = 'Today';
-                    main.append(todayHeading);
-                }; 
-                if (projectList[i].date > today && todayGroup == 1)  {
-                    todayGroup = null;
-                    const lineBreak = document.createElement('hr');
-                    main.append(lineBreak);
-                }; 
-                main.append(projectList[i].htmlFormat());
+    if (option === 'byProject'){
+        const projectList = masterList.produceProjectList(projectName);
+        const projectHeading = document.createElement("div");
+        projectHeading.classList.add('heading');
+        projectHeading.textContent = projectName;
+        main.append(projectHeading);
+        for (let i = 0; i < projectList.length; i++){
+            if (projectList[i].date >= today && projectList[i].date <= today && todayGroup == null) {
+                todayGroup = 1;
+                const todayHeading = document.createElement("div");
+                todayHeading.classList.add('subheading');
+                todayHeading.textContent = 'Today';
+                main.append(todayHeading);
+            } 
+            if (projectList[i].date > today && todayGroup == 1)  {
+                todayGroup = null;
+                const lineBreak = document.createElement('hr');
+                main.append(lineBreak);
             }
-            return;
-        
-        case 'today':
-            for (let i = 0; i < masterList.data.length; i++){
-                if (masterList.data[i].date < today  && pastDue == null ) {
-                    pastDue = 1;
-                    const pastDueHeading = document.createElement("div");
-                    pastDueHeading.classList.add('heading');
-                    pastDueHeading.textContent = 'Past Due';
-                    main.append(pastDueHeading);
-                }; 
-        
-                if (masterList.data[i].date >= today && pastDue == 1) {
-                    pastDue = null;
-                    const lineBreak = document.createElement('hr');
-                    main.append(lineBreak);
-                }; 
+            main.append(projectList[i].htmlFormat());
+        }
+        return;
+    }
+    else {
+        for (let i = 0; i < masterList.data.length; i++){
+            if (masterList.data[i].date >= tomorrow && option === "today") {
+                return;
+            }; 
 
-                if (masterList.data[i].date >= today && todayGroup == null) {
-                    todayGroup = 1;
-                    const todayHeading = document.createElement("div");
-                    todayHeading.classList.add('heading');
-                    todayHeading.textContent = 'Today';
-                    main.append(todayHeading);
-                }; 
+            if (masterList.data[i].date > weekFromToday && option === "this-week") {
+                return;
+            }; 
 
-                if (masterList.data[i].date > tomorrow) {
-                    return;
-                }; 
-            
+
+            // Past Due Undone Block
+            if (masterList.data[i].date < today  && pastDue == null && masterList.data[i].completed === false) {
+                pastDue = 1;
+                const pastDueHeading = document.createElement("div");
+                pastDueHeading.classList.add('heading');
+                pastDueHeading.textContent = 'Past Due';
+                main.append(pastDueHeading);
+            }
+         
+            if (masterList.data[i].date >= today && pastDue == 1) {
+                pastDue = 2;
+                const lineBreak = document.createElement('hr');
+                main.append(lineBreak);
+            }
+
+            // Today Block
+            if (masterList.data[i].date >= today && masterList.data[i].date < tomorrow && todayGroup == null) {
+                todayGroup = 1;
+                const todayHeading = document.createElement("div");
+                todayHeading.classList.add('heading');
+                todayHeading.textContent = 'Today';
+                main.append(todayHeading);
+            } 
+
+            if (masterList.data[i].date >= tomorrow && todayGroup == 1) {
+                todayGroup = 2;
+                const lineBreak = document.createElement('hr');
+                main.append(lineBreak);
+            }
+
+            if (masterList.data[i].date <= weekFromToday && masterList.data[i].date >= tomorrow && weekGroup == null) {
+                weekGroup = 1;
+                const weekHeading = document.createElement("div");
+                weekHeading.classList.add('heading');
+                weekHeading.textContent = 'This Week';
+                main.append(weekHeading);
+            } 
+
+            if (masterList.data[i].date > weekFromToday && weekGroup == 1) {
+                weekGroup = 2;
+                const lineBreak = document.createElement('hr');
+                main.append(lineBreak);
+            }; 
+
+           
+            if ((masterList.data[i].completed === false && masterList.data[i].date < today) || masterList.data[i].date >= today){
                 main.append(masterList.data[i].htmlFormat());
             }
-            break;
-
-        case 'thisWeek':
-            break;
         
-        default:
-            for (let i = 0; i < masterList.data.length; i++){
-                if (masterList.data[i].date < today  && pastDue == null ) {
-                    pastDue = 1;
-                    const pastDueHeading = document.createElement("div");
-                    pastDueHeading.classList.add('heading');
-                    pastDueHeading.textContent = 'Past Due';
-                    main.append(pastDueHeading);
-                }; 
-        
-                if (masterList.data[i].date >= today && pastDue == 1) {
-                    pastDue = null;
-                    const lineBreak = document.createElement('hr');
-                    main.append(lineBreak);
-                }; 
+           
+        }
 
-                if (masterList.data[i].date >= today && todayGroup == null) {
-                    todayGroup = 1;
-                    const todayHeading = document.createElement("div");
-                    todayHeading.classList.add('heading');
-                    todayHeading.textContent = 'Today';
-                    main.append(todayHeading);
-                }; 
-
-                if (masterList.data[i].date >= tomorrow && todayGroup == 1) {
-                    todayGroup = 2;
-                    const lineBreak = document.createElement('hr');
-                    main.append(lineBreak);
-                }; 
-
-        
-            
-                main.append(masterList.data[i].htmlFormat());
-            }
-            return
     }
 }
 
