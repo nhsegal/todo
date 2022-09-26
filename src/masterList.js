@@ -4,7 +4,7 @@
 let instance = null;
 
 // Constructor to make task objects
-export class MasterList {
+class MasterList {
     constructor() { 
         if (instance) {
             throw new Error("You can only create one instance!");
@@ -45,3 +45,5 @@ export class MasterList {
         return allProjects;
     }
 }
+
+export const masterList = new MasterList;

@@ -2,14 +2,9 @@
 
 import { Task } from "./tasks";
 import { prepareDOM } from "./dom";
-import { MasterList } from "./masterList";
+import { masterList } from "./masterList";
 import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 import { currentSettings } from "./currentSettings";
-
-// Create the masterList before building the DOM
-const masterList = new MasterList;
-
-
 
 
 //  ###########     Sample tasks to test the app     ########### 
@@ -58,11 +53,9 @@ renderAddTaskModal(body, masterList.getListOfProjects());
 renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
 
 // Add eventlisteners to header and modal
-//prepareDOM();
+prepareDOM();
 
 // Add eventlisteners to sidebar
-
-// Need to add project event listeners 
 const addSideBarEventListeners = (listOfProjects) => {
     try {
         const todaysTasks = document.querySelector("#todays-tasks");

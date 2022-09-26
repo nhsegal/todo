@@ -196,10 +196,7 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
         option.textContent = entry; 
         assignToProjectDataList.append(option);
     })
-    //const projectOption1 = document.createElement("option");
-    //projectOption1.value = "Coding";
-    //projectOption1.textContent = "Coding"; 
-    //assignToProjectDataList.append(projectOption1);
+
     assignToProject.append(assignToProjectDataList);
 
     const submitBtn = document.createElement("button");
