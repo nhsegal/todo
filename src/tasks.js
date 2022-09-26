@@ -52,10 +52,7 @@ export class Task {
         } 
         card.append(checkbox, taskName, taskDue, editBtn, removeBtn);
         return (card)
-    }
-
-
-    
+    } 
 };
 
 

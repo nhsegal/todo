@@ -1,7 +1,7 @@
 "use strict";
 
 import { Task } from "./tasks";
-import { prepareDOM } from "./dom";
+import { prepareDOM, addSideBarEventListeners } from "./dom";
 import { masterList } from "./masterList";
 import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 import { currentSettings } from "./currentSettings";
@@ -54,39 +54,6 @@ renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProjec
 
 // Add eventlisteners to header and modal
 prepareDOM();
-
-// Add eventlisteners to sidebar
-const addSideBarEventListeners = (listOfProjects) => {
-    try {
-        const todaysTasks = document.querySelector("#todays-tasks");
-        todaysTasks.addEventListener("click", function(){
-        currentSettings.update('today', null);
-        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
-
-        const weeksTasks = document.querySelector("#this-week");
-        weeksTasks.addEventListener("click", function(){
-        currentSettings.update('this-week', null);
-        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
-
-        const allTasks = document.querySelector("#all-tasks");
-        allTasks.addEventListener("click", function(){
-        currentSettings.update('all', null);
-        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
-       
-        console.log(listOfProjects);
-        listOfProjects.forEach(    (item) => { 
-                                            const el =document.getElementById(item);
-                                            el.addEventListener('click', () => {
-                                                currentSettings.update('byProject', el.id);
-                                                renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
-                                            })
-         } );
-    }
-    catch {
-        console.log('failed');
-    }
-};
-
 addSideBarEventListeners( masterList.getListOfProjects());
 
 

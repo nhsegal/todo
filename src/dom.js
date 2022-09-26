@@ -5,12 +5,16 @@ import { renderMain, renderSideBar } from "./render";
 import { Task } from "./tasks"; 
 import { currentSettings } from "./currentSettings";
 
+
+ // Cache the DOM
+ 
+
+
 export function prepareDOM (){
-    // Cache the DOM
     const addTaskBtn = document.querySelector("#add-a-task");
+    const addTaskForm = document.querySelector("#task-form");
     const addTaskModal = document.querySelector("#add-a-task-modal");
     const closeModalButton = document.querySelector("#close-modal-button");
-    const modalSubmitButton = document.querySelector("#modal-submit");
     const newTaskContent = document.querySelector("#task-content");
     const newTaskDate = document.querySelector("#date");
     const newTaskPriority = document.querySelectorAll('input[name=priority]');
@@ -18,11 +22,9 @@ export function prepareDOM (){
     const main = document.querySelector('main');
     const body = document.querySelector('body');
 
-    // Arrays for events
-    const taskList = [];
-
     // Callback for create task submit
     const taskSubmit = function(e) {
+        console.log('eher')
         e.preventDefault();
         addTaskModal.classList.toggle("closed");
         let newTaskPriorityValue = null;
@@ -42,12 +44,49 @@ export function prepareDOM (){
         newTaskProject.value = null;
         renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
         renderSideBar(body, masterList, masterList.getListOfProjects());
+        
     }
 
     // Add eventlisteners
     addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
     closeModalButton.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
-    modalSubmitButton.addEventListener("click", taskSubmit);
-    return 'done'
-   
+    addTaskForm.addEventListener("submit", taskSubmit);  
 }
+
+// Add eventlisteners to sidebar
+export const addSideBarEventListeners = (listOfProjects) => {
+    const addTaskBtn = document.querySelector("#add-a-task");
+ 
+     const main = document.querySelector('main');
+
+    try {
+        const todaysTasks = document.querySelector("#todays-tasks");
+        todaysTasks.addEventListener("click", function(){
+        currentSettings.update('today', null);
+        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
+
+        const weeksTasks = document.querySelector("#this-week");
+        weeksTasks.addEventListener("click", function(){
+        currentSettings.update('this-week', null);
+        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
+
+        const allTasks = document.querySelector("#all-tasks");
+        allTasks.addEventListener("click", function(){
+        currentSettings.update('all', null);
+        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
+       
+        console.log(listOfProjects);
+        listOfProjects.forEach(    (item) => { 
+                                            const el =document.getElementById(item);
+                                            el.addEventListener('click', () => {
+                                                currentSettings.update('byProject', el.id);
+                                                renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
+                                            })
+         } );
+    }
+    catch {
+        console.log('failed');
+    }
+};
+
+

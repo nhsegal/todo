@@ -225,7 +225,6 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     someDiv.append(addTaskModal);
 }
 
-
 export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
     if (document.querySelector("#sidebar")) {
         const deleteThis = document.querySelector("#sidebar");
@@ -234,15 +233,12 @@ export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
 
     const sidebarSection = document.createElement("section");
     sidebarSection.id = 'sidebar';
-    //sidebarSection.textContent = "Upcoming Tasks";
     const listByTime = document.createElement('ul');
     const listItem1 = document.createElement('li');
     const item1Anchor = document.createElement('a');
     item1Anchor.id = 'todays-tasks';
     item1Anchor.href = '#';
     item1Anchor.textContent = "Today";
-
-
 
     listItem1.append(item1Anchor);
 
@@ -273,15 +269,11 @@ export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
         listItem.append(itemAnchor);
         div.append(listItem);
     }
-
-   
     if (arrayOfProjectNames){
         arrayOfProjectNames.forEach(function(a){ makeLink(a, listByProject) } );
     }
     sidebarSection.append(listByTime, listByProject);
-    someDiv.append(sidebarSection);
-
-   
+    someDiv.append(sidebarSection);   
 }
 
 export function renderHeader(someDiv) {
