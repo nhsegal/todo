@@ -1,8 +1,7 @@
 "use strict"
+import { currentSettings } from "./currentSettings";
 
-// Complete the "week" option. Add a "Past Due" category
-// Maybe the sidebar should be radio buttons 
-export function renderMain(masterList, main, option, projectName = null) {
+export function renderMain(masterList, main, option, byProjectName = null) {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
     let tomorrow = new Date(today);
@@ -19,12 +18,12 @@ export function renderMain(masterList, main, option, projectName = null) {
     while (main.firstChild) {
         main.removeChild(main.firstChild);
     }
-    console.log(option)
+
     if (option === 'byProject'){
-        const projectList = masterList.produceProjectList(projectName);
+        const projectList = masterList.produceProjectList(byProjectName);
         const projectHeading = document.createElement("div");
         projectHeading.classList.add('heading');
-        projectHeading.textContent = projectName;
+        projectHeading.textContent = byProjectName;
         main.append(projectHeading);
         for (let i = 0; i < projectList.length; i++){
             if (projectList[i].date >= today && projectList[i].date <= today && todayGroup == null) {
@@ -54,7 +53,7 @@ export function renderMain(masterList, main, option, projectName = null) {
             }; 
 
 
-            // Past Due Undone Block
+            // Past-Due Undone Block
             if (masterList.data[i].date < today  && pastDue == null && masterList.data[i].completed === false) {
                 pastDue = 1;
                 const pastDueHeading = document.createElement("div");
@@ -109,9 +108,7 @@ export function renderMain(masterList, main, option, projectName = null) {
     }
 }
 
-// Modify renderAddTasksModal to accept an array of projectNames after someDiv 
-// and use this array as the select options
-export function renderAddTaskModal(someDiv) {
+export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     const addTaskModal = document.createElement("div");
     addTaskModal.classList.add('modal');
     addTaskModal.classList.add('closed');
@@ -193,11 +190,16 @@ export function renderAddTaskModal(someDiv) {
     const assignToProjectDataList = document.createElement("datalist");
     assignToProjectDataList.id = "project-list";
    
-    const projectOption1 = document.createElement("option");
-    projectOption1.value = "Coding";
-    projectOption1.textContent = "Coding"; 
-
-    assignToProjectDataList.append(projectOption1);
+    arrayOfProjectNames.forEach( (entry) => {
+        const option = document.createElement("option")
+        option.value = entry;
+        option.textContent = entry; 
+        assignToProjectDataList.append(option);
+    })
+    //const projectOption1 = document.createElement("option");
+    //projectOption1.value = "Coding";
+    //projectOption1.textContent = "Coding"; 
+    //assignToProjectDataList.append(projectOption1);
     assignToProject.append(assignToProjectDataList);
 
     const submitBtn = document.createElement("button");
@@ -227,18 +229,24 @@ export function renderAddTaskModal(someDiv) {
 }
 
 //export function renderSideBar(arrayOfProjectNames)
-export function renderSideBar(someDiv) {
+export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
+    if (document.querySelector("#sidebar")) {
+        const deleteThis = document.querySelector("#sidebar");
+        deleteThis.parentNode.removeChild(deleteThis);
+    }
+
     const sidebarSection = document.createElement("section");
     sidebarSection.id = 'sidebar';
-    sidebarSection.textContent = "Upcoming Tasks";
-
+    //sidebarSection.textContent = "Upcoming Tasks";
     const listByTime = document.createElement('ul');
-    
     const listItem1 = document.createElement('li');
     const item1Anchor = document.createElement('a');
     item1Anchor.id = 'todays-tasks';
     item1Anchor.href = '#';
     item1Anchor.textContent = "Today";
+
+
+
     listItem1.append(item1Anchor);
 
     const listItem2 = document.createElement('li');
@@ -258,9 +266,26 @@ export function renderSideBar(someDiv) {
     listByTime.append(listItem1, listItem2, listItem3);
 
     //How to add By Project?
+    const listByProject = document.createElement('ul');
 
-    sidebarSection.append(listByTime);
+    const makeLink = function(name, div) {
+        const listItem = document.createElement('li');
+        const itemAnchor = document.createElement('a');
+        itemAnchor.id = name;
+        itemAnchor.href = '#';
+        itemAnchor.textContent = name;
+        listItem.append(itemAnchor);
+        div.append(listItem);
+    }
+
+   
+    if (arrayOfProjectNames){
+        arrayOfProjectNames.forEach(function(a){ makeLink(a, listByProject) } );
+    }
+    sidebarSection.append(listByTime, listByProject);
     someDiv.append(sidebarSection);
+
+   
 }
 
 export function renderHeader(someDiv) {

@@ -1,11 +1,16 @@
 "use strict";
 
-
+// There should only be one master list
+let instance = null;
 
 // Constructor to make task objects
 export class MasterList {
     constructor() { 
-       this.data = [];
+        if (instance) {
+            throw new Error("You can only create one instance!");
+        }
+        instance = this;
+        this.data = [];
     }
 
     addTask(task) {
@@ -13,14 +18,7 @@ export class MasterList {
     }
 
     removeTask(task) {
-        let tempArr = [];
-        while (this.data.indexOf(task) > -1) {
-            tempArr.push(this.data.pop());
-        }
-        tempArr.pop();
-        while (tempArr.length) {
-            this.data.push(tempArr.pop());
-        }
+        this.data.splice(this.data.indexOf(task), 1);
     }
 
     editTask(task, attribute, value) {
@@ -37,4 +35,13 @@ export class MasterList {
         return projectList;
     }
 
+    getListOfProjects() {
+        const allProjects = [];
+        this.data.forEach( (task)=> {
+            if (task.project != null && !allProjects.some((a)=> a===task.project)){
+                allProjects.push(task.project);
+            }
+        }  )
+        return allProjects;
+    }
 }

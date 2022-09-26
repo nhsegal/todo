@@ -1,8 +1,9 @@
 "use strict";
 
 import { MasterList } from "./masterList";
+import { renderMain, renderSideBar } from "./render";
 import { Task } from "./tasks"; 
-import { renderMain } from "./render";
+
 
 export function prepareDOM (){
     // Cache the DOM
@@ -28,13 +29,15 @@ export function prepareDOM (){
         }
         addTaskModal.classList.toggle("closed");
         const newTask = new Task( newTaskDate.value, newTaskContent.value, newTaskPriorityValue);
-        taskList.push(newTask);
-        render(taskList);
+        masterList.addTask(newTask);
+        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
+        renderSideBar(body, masterList);
     }
 
     // Add eventlisteners
-    addTaskBtn.addEventListener("click", () => { console.log('here'); addTaskModal.classList.toggle("closed") });
+    addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
     closeModalButton.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
     modalSubmitButton.addEventListener("click", taskSubmit);
+    return 'done'
    
 }
