@@ -228,7 +228,7 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     someDiv.append(addTaskModal);
 }
 
-//export function renderSideBar(arrayOfProjectNames)
+
 export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
     if (document.querySelector("#sidebar")) {
         const deleteThis = document.querySelector("#sidebar");
@@ -265,7 +265,6 @@ export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
 
     listByTime.append(listItem1, listItem2, listItem3);
 
-    //How to add By Project?
     const listByProject = document.createElement('ul');
 
     const makeLink = function(name, div) {

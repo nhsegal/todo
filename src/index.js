@@ -51,6 +51,7 @@ masterList.editTask(sampleTask9, 'project', 'Health');
 const body = document.querySelector("body");
 const addDiv = document.querySelector("#for-add-task-modal");
 const main = document.querySelector("main");
+
 renderHeader(body);
 renderSideBar(body, masterList, masterList.getListOfProjects());
 renderAddTaskModal(body, masterList.getListOfProjects());
@@ -61,10 +62,8 @@ renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProjec
 
 // Add eventlisteners to sidebar
 
-
-
-
-const addSideBarEventListeners = () => {
+// Need to add project event listeners 
+const addSideBarEventListeners = (listOfProjects) => {
     try {
         const todaysTasks = document.querySelector("#todays-tasks");
         todaysTasks.addEventListener("click", function(){
@@ -80,13 +79,22 @@ const addSideBarEventListeners = () => {
         allTasks.addEventListener("click", function(){
         currentSettings.update('all', null);
         renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
+       
+        console.log(listOfProjects);
+        listOfProjects.forEach(    (item) => { 
+                                            const el =document.getElementById(item);
+                                            el.addEventListener('click', () => {
+                                                currentSettings.update('byProject', el.id);
+                                                renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
+                                            })
+         } );
     }
     catch {
         console.log('failed');
     }
 };
 
-addSideBarEventListeners();
+addSideBarEventListeners( masterList.getListOfProjects());
 
 
 
