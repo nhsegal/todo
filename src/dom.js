@@ -24,7 +24,6 @@ export function prepareDOM (){
 
     // Callback for create task submit
     const taskSubmit = function(e) {
-        console.log('eher')
         e.preventDefault();
         addTaskModal.classList.toggle("closed");
         let newTaskPriorityValue = null;

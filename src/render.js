@@ -1,5 +1,5 @@
 "use strict"
-import { currentSettings } from "./currentSettings";
+
 
 export function renderMain(masterList, main, option, byProjectName = null) {
     let today = new Date();
