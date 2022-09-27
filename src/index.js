@@ -44,7 +44,6 @@ masterList.editTask(sampleTask9, 'project', 'Health');
 
 // Cache DOM and render each section
 const body = document.querySelector("body");
-const addDiv = document.querySelector("#for-add-task-modal");
 const main = document.querySelector("main");
 
 renderHeader(body);

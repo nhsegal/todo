@@ -5,11 +5,8 @@ import { renderMain, renderSideBar } from "./render";
 import { Task } from "./tasks"; 
 import { currentSettings } from "./currentSettings";
 
-
  // Cache the DOM
  
-
-
 export function prepareDOM (){
     const addTaskBtn = document.querySelector("#add-a-task");
     const addTaskForm = document.querySelector("#task-form");

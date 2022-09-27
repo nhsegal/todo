@@ -226,10 +226,7 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
 }
 
 export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
-    if (document.querySelector("#sidebar")) {
-        const deleteThis = document.querySelector("#sidebar");
-        deleteThis.parentNode.removeChild(deleteThis);
-    }
+ 
 
     const sidebarSection = document.createElement("section");
     sidebarSection.id = 'sidebar';
@@ -258,7 +255,13 @@ export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
 
     listByTime.append(listItem1, listItem2, listItem3);
 
+    if (document.querySelector("#list-by-project")) {
+        const deleteThis = document.querySelector("#list-by-project");
+        deleteThis.parentNode.removeChild(deleteThis);
+    }
+
     const listByProject = document.createElement('ul');
+    listByProject.id = 'list-by-project';
 
     const makeLink = function(name, div) {
         const listItem = document.createElement('li');

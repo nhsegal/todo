@@ -25,16 +25,19 @@ export class Task {
     htmlFormat() {
         const checkbox = document.createElement('input');
         checkbox.type = "checkbox";
-        checkbox.name = "name";
+        checkbox.name = "isCompletedCheckbox";
+        checkbox.setAttribute('data-id', this.id);
         checkbox.checked = this.completed;
         checkbox.id = this.content;
     
         const taskName = document.createElement("div");
         taskName.classList.add('task-name');
+        taskName.setAttribute('data-id', this.id);
         taskName.textContent = this.content;
 
         const taskDue = document.createElement("div");
         taskDue.classList.add('task-due-date');
+        taskDue.setAttribute('data-id', this.id);
         taskDue.textContent = `Due: ${this.date.toLocaleString('default', {weekday: 'short' })},
            ${ this.date.toLocaleString('default', { month: 'short' })}. 
             ${ this.date.getDate()} `  
@@ -44,24 +47,21 @@ export class Task {
         }
 
         const removeTask = function(e) {
-           
             const thisTask = masterList.data.filter( (t) => t.id == e.target.parentElement.getAttribute("data-id"));
-            console.log(thisTask[0]);
             masterList.removeTask(thisTask[0])
-            
-            
-            
+            // reRender();
             renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
-           
         }
     
         const editBtn = document.createElement("button");
         editBtn.classList.add('edit-task');
+        editBtn.setAttribute('data-id', this.id);
         editBtn.textContent = 'edit';
         editBtn.addEventListener("click", editTask);
     
         const removeBtn = document.createElement("button");
         removeBtn.classList.add('remove-task');
+        removeBtn.setAttribute('data-id', this.id);
         removeBtn.textContent = 'remove';
         removeBtn.addEventListener("click", removeTask);
     
