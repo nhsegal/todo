@@ -1,7 +1,8 @@
 "use strict";
 
 import { Task } from "./tasks";
-import { prepareDOM, addSideBarEventListeners } from "./dom";
+import { DOM } from "./DOMCache";
+import { addInitialEventListeners, addSideProjectEventListeners } from "./addELs";
 import { masterList } from "./masterList";
 import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 import { currentSettings } from "./currentSettings";
@@ -43,17 +44,17 @@ masterList.editTask(sampleTask9, 'project', 'Health');
 
 
 // Cache DOM and render each section
-const body = document.querySelector("body");
-const main = document.querySelector("main");
+//const body = document.querySelector("body");
+//const main = document.querySelector("main");
 
-renderHeader(body);
-renderSideBar(body, masterList, masterList.getListOfProjects());
-renderAddTaskModal(body, masterList.getListOfProjects());
-renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
+renderHeader(DOM.body);
+renderSideBar(DOM.body, masterList, masterList.getListOfProjects());
+renderAddTaskModal(DOM.body, masterList.getListOfProjects());
+renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
 
 // Add eventlisteners to header and modal
-prepareDOM();
-addSideBarEventListeners( masterList.getListOfProjects());
+addInitialEventListeners();
+addSideProjectEventListeners();
 
 
 

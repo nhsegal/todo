@@ -1,56 +1,67 @@
 
-const header = document.createElement("header");
-const addTaskBtn = document.querySelector("#add-a-task");
-const addTaskForm = document.querySelector("#task-form");
-const addTaskModal = document.querySelector("#add-a-task-modal");
-const closeModalButton = document.querySelector("#close-modal-button");
-const newTaskContent = document.querySelector("#task-content");
-const newTaskDate = document.querySelector("#date");
-const newTaskPriority = document.querySelectorAll('input[name=priority]');
-const newTaskProject = document.querySelector('#project');
 const main = document.querySelector('main');
 const body = document.querySelector('body');
-const sideBar = document.querySelector("#sidebar");
-const todaysTasksSideBar = document.querySelector("todays-tasks");
-const thisWeekSideBar = document.querySelector("this-week");
-const allTasksSideBar = document.querySelector("all-tasks");
 
 function dom() {
     return {
-        header,
-        addTaskBtn, 
-        addTaskForm, 
-        addTaskModal, 
-        closeModalButton, 
-        newTaskContent, 
-        newTaskDate, 
-        newTaskPriority,
-        newTaskProject, 
+        get header() {
+            return document.querySelector("header");
+        }, 
+        get addTaskBtn() {
+            return document.querySelector("#add-a-task");
+        }, 
+        get addTaskForm() { 
+            return document.querySelector("#task-form");
+        }, 
+        get addTaskModal() { 
+            return document.querySelector("#add-a-task-modal");
+        }, 
+        get closeModalButton() { 
+            return document.querySelector("#close-modal-button");
+        }, 
+        get newTaskContent() { 
+            return document.querySelector("#task-content");
+        }, 
+        get newTaskDate() { 
+            return document.querySelector("#date");
+        },
+        get newTaskPriority() { 
+            return document.querySelectorAll('input[name=priority]');
+        },  
+        get newTaskProject() { 
+            return document.querySelector('#project');
+        },          
         main,
         body, 
-        sideBar,
-        todaysTasksSideBar,
-        thisWeekSideBar, 
-        allTasksSideBar, 
+        get sideBar() { 
+            return document.querySelector("#sidebar");
+        }, 
+        get todaysTasksSideBar (){
+            return document.querySelector("#todays-tasks");
+        },
+        get thisWeekSideBar() {
+            return document.querySelector("#this-week");
+        }, 
+        get allTasksSideBar() {
+            return document.querySelector("#all-tasks");
+        }, 
         get cardEditBtns() {
-            editBtns = document.querySelectorAll('.edit-task');
-            return editBtns;
+            return document.querySelectorAll('.edit-task');
         },
         get cardRemoveBtns() {
-            removeBtns = document.querySelectorAll('.remove-task');
-            return removeBtns;
+            return document.querySelectorAll('.remove-task');
         },
         get cardCheckBoxs() {
-            completed = document.querySelectorAll('[name="isCompletedCheckbox"]');
-            return completed;
+            return document.querySelectorAll('[name="isCompletedCheckbox"]');
         },
         get sidebarProjectList() {
             // I need the anchor tags nexted inside the li's
-            const listitems = sideBar.children[1].children;
+            const listitems = this.sideBar.children[1].children;
             const arrayOfProjectLinks = [];
             for (let i = 0; i< listitems.length; i++){
                 arrayOfProjectLinks.push(listitems[i].children);
             }
+            
             return arrayOfProjectLinks
         },
     }
