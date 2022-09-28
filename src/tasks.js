@@ -4,7 +4,7 @@ import { renderMain } from "./render";
 import { currentSettings } from "./currentSettings";
 
 
-const main = document.querySelector('main');
+//const main = document.querySelector('main');
 
 // Constructor to make task objects
 export class Task {
@@ -50,7 +50,7 @@ export class Task {
             const thisTask = masterList.data.filter( (t) => t.id == e.target.parentElement.getAttribute("data-id"));
             masterList.removeTask(thisTask[0])
             // reRender();
-            renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
+            renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
         }
     
         const editBtn = document.createElement("button");

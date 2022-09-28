@@ -7,7 +7,7 @@ import { currentSettings } from "./currentSettings";
 import { DOM } from "./DOMCache";
 
 export function addInitialEventListeners(){ 
-    //  *** AddTaskModal open, submit, and close btns ***
+//  *** AddTaskModal open, submit, and close btn ELs ***
 
     // callback for submit
     const taskSubmit = function(e) {
@@ -39,13 +39,12 @@ export function addInitialEventListeners(){
     DOM.closeModalButton.addEventListener("click", () => { DOM.addTaskModal.classList.toggle("closed") });
     DOM.addTaskForm.addEventListener("submit", taskSubmit);  
     
-    //Today, Week, and All in SideBar
+    //Today, Week, and All sideBar ELs
     try {
         DOM.todaysTasksSideBar.addEventListener("click", function(){ 
             currentSettings.update('today', null);
             renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject)});
          
-            
         DOM.thisWeekSideBar.addEventListener("click", function(){
             currentSettings.update('this-week', null);
             renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject)});
@@ -61,14 +60,44 @@ export function addInitialEventListeners(){
 
 }
 
-export function addCardEventListeners(){
-    //Completed
-    //Edit
-    //Remove
+function addCardEventListeners(task){
+    const checkbox = document.querySelectorAll(`[data-id="${task.id}"] input`);
+    checkbox[0].addEventListener('change', function() {
+        if (this.checked) {
+            console.log("Checkbox is checked..");
+        } else {
+            console.log("Checkbox is not checked..");
+        }
+    });
+
+    const editTask = function(e) {
+        console.log(e.target.parentElement.getAttribute("data-id"));
+    }
+
+    const removeTask = function(e) {
+        const thisTask = masterList.data.filter( (t) => t.id == e.target.parentElement.getAttribute("data-id"));
+        masterList.removeTask(thisTask[0]);
+        masterList.displayedList.splice(masterList.displayedList.indexOf(thisTask[0]), 1);
+        // reRender();
+        renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+    }
+    
+    const editBtn = document.querySelectorAll(`[data-id="${task.id}"] button`)[0];
+    editBtn.addEventListener("click", editTask);
+    
+    const removeBtn = document.querySelectorAll(`[data-id="${task.id}"] button`)[1];
+    removeBtn.addEventListener("click", removeTask);
+} 
+
+export function addMainEventListeners(){
+    for (let item of masterList.displayedList) {
+        addCardEventListeners(item);
+    }
 }
 
+
 export function addSideProjectEventListeners(){
-    //Project Name
+    // SideBar Project Name ELs
     try {
         console.log(DOM.sidebarProjectList.length);
         for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
@@ -76,91 +105,13 @@ export function addSideProjectEventListeners(){
             projectLink.addEventListener('click',  function() {
                 currentSettings.update('byProject', projectLink.id);
                 renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
-            }
-           
-            )
-               // currentSettings.update('byProject', el.id);
-               // renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
-                
-            
-            
+            })
         };
     }
 
     catch {
         console.log('failed to add el to projects')
     }
-   
- 
     //Remove project button ? 
 }
  
-/*
-export function prepareDOM(){
-
-
-    // Callback for create task submit
-    const taskSubmit = function(e) {
-        e.preventDefault();
-        addTaskModal.classList.toggle("closed");
-        let newTaskPriorityValue = null;
-        for (const option of newTaskPriority) {
-            if (option.checked) {
-                newTaskPriorityValue = option.value;
-            }
-        }
-        const newTask = new Task( newTaskDate.value, newTaskContent.value, newTaskPriorityValue, newTaskProject.value);
-        masterList.addTask(newTask);
-        masterList.sortByDate();
-        newTaskContent.value = null;
-        newTaskDate.value = null;
-        for (const option of newTaskPriority) {
-            newTaskPriorityValue = null;            
-        }
-        newTaskProject.value = null;
-        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject);
-        renderSideBar(body, masterList, masterList.getListOfProjects());
-        
-    }
-
-    // Add eventlisteners
-    console.log(DOM);
-    DOM.addTaskBtn.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
-    DOM.closeModalButton.addEventListener("click", () => { addTaskModal.classList.toggle("closed") });
-    DOM.addTaskForm.addEventListener("submit", taskSubmit);  
-}
-
-
-// Add eventlisteners to sidebar
-export const addSideBarEventListeners = () => {
-  
-    try {
-
-        DOM.todaysTasks.addEventListener("click", function(){
-        currentSettings.update('today', null);
-        renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject)});
-
-     
-        weeksTasks.addEventListener("click", function(){
-        currentSettings.update('this-week', null);
-        renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject)});
-
-      
-        DOM.allTasks.addEventListener("click", function(){
-        currentSettings.update('all', null);
-        renderMain(masterList, main, currentSettings.viewBy, currentSettings.whichProject)});
-       
-        DOM.sidebarProjectList.forEach(    (item) => { 
-                                            const el =document.getElementById(item);
-                                            el.addEventListener('click', () => {
-                                                currentSettings.update('byProject', el.id);
-                                                renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
-                                            })
-         } );
-    }
-    catch {
-        console.log('failed');
-    }
-};
-
-*/

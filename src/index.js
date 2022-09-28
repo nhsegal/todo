@@ -2,7 +2,7 @@
 
 import { Task } from "./tasks";
 import { DOM } from "./DOMCache";
-import { addInitialEventListeners, addSideProjectEventListeners } from "./addELs";
+import { addMainEventListeners, addInitialEventListeners, addSideProjectEventListeners } from "./addELs";
 import { masterList } from "./masterList";
 import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 import { currentSettings } from "./currentSettings";
@@ -50,11 +50,12 @@ masterList.editTask(sampleTask9, 'project', 'Health');
 renderHeader(DOM.body);
 renderSideBar(DOM.body, masterList, masterList.getListOfProjects());
 renderAddTaskModal(DOM.body, masterList.getListOfProjects());
-renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
+renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
 
 // Add eventlisteners to header and modal
 addInitialEventListeners();
 addSideProjectEventListeners();
+addMainEventListeners();
 
 
 

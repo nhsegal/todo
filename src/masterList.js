@@ -11,6 +11,7 @@ class MasterList {
         }
         instance = this;
         this.data = [];
+        this.displayedList = [];
     }
 
     addTask(task) {

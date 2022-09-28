@@ -1,7 +1,49 @@
 "use strict"
+import { DOM } from "./DOMCache";
 
+function renderCard(task) {
+    const checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.name = "isCompletedCheckbox";
+    checkbox.setAttribute('data-id', task.id);
+    checkbox.checked = task.completed;
+    checkbox.id = task.content;
+    
+    const taskName = document.createElement("div");
+    taskName.classList.add('task-name');
+    taskName.setAttribute('data-id', task.id);
+    taskName.textContent = task.content;
 
-export function renderMain(masterList, main, option, byProjectName = null) {
+    const taskDue = document.createElement("div");
+    taskDue.classList.add('task-due-date');
+    taskDue.setAttribute('data-id', task.id);
+    taskDue.textContent = `Due: ${task.date.toLocaleString('default', {weekday: 'short' })},
+        ${ task.date.toLocaleString('default', { month: 'short' })}. 
+        ${ task.date.getDate()} `  
+    
+    const editBtn = document.createElement("button");
+    editBtn.classList.add('edit-task');
+    editBtn.setAttribute('data-id', task.id);
+    editBtn.textContent = 'edit';
+    //editBtn.addEventListener("click", editTask);
+    
+    const removeBtn = document.createElement("button");
+    removeBtn.classList.add('remove-task');
+    removeBtn.setAttribute('data-id', task.id);
+    removeBtn.textContent = 'remove';
+    //removeBtn.addEventListener("click", removeTask);
+    
+    const card = document.createElement("div");
+    card.classList.add('card');
+    card.setAttribute('data-id', task.id);
+    if (task.priority == 'high') {
+        card.classList.add('important');
+    } 
+    card.append(checkbox, taskName, taskDue, editBtn, removeBtn);
+    return (card)
+}
+
+export function renderMain(masterList, option, byProjectName = null) {
     let today = new Date();
     today.setHours(0, 0, 0, 0);
     let tomorrow = new Date(today);
@@ -14,9 +56,10 @@ export function renderMain(masterList, main, option, byProjectName = null) {
     let pastDue = null;
     let weekGroup = null;
 
-    // First remove everything from main
-    while (main.firstChild) {
-        main.removeChild(main.firstChild);
+    // First remove everything from main and from displayList
+    while (DOM.main.firstChild) {
+        DOM.main.removeChild(DOM.main.firstChild);
+        masterList.displayedList.splice(0, masterList.displayedList.length);
     }
 
     if (option === 'byProject'){
@@ -24,21 +67,22 @@ export function renderMain(masterList, main, option, byProjectName = null) {
         const projectHeading = document.createElement("div");
         projectHeading.classList.add('heading');
         projectHeading.textContent = byProjectName;
-        main.append(projectHeading);
+        DOM.main.append(projectHeading);
         for (let i = 0; i < projectList.length; i++){
             if (projectList[i].date >= today && projectList[i].date <= today && todayGroup == null) {
                 todayGroup = 1;
                 const todayHeading = document.createElement("div");
                 todayHeading.classList.add('subheading');
                 todayHeading.textContent = 'Today';
-                main.append(todayHeading);
+                DOM.main.append(todayHeading);
             } 
             if (projectList[i].date > today && todayGroup == 1)  {
                 todayGroup = null;
                 const lineBreak = document.createElement('hr');
-                main.append(lineBreak);
+                DOM.main.append(lineBreak);
             }
-            main.append(projectList[i].htmlFormat());
+            DOM.main.append(renderCard(projectList[i]));
+            masterList.displayedList.push(projectList[i]);
         }
         return;
     }
@@ -59,13 +103,13 @@ export function renderMain(masterList, main, option, byProjectName = null) {
                 const pastDueHeading = document.createElement("div");
                 pastDueHeading.classList.add('heading');
                 pastDueHeading.textContent = 'Past Due';
-                main.append(pastDueHeading);
+                DOM.main.append(pastDueHeading);
             }
          
             if (masterList.data[i].date >= today && pastDue == 1) {
                 pastDue = 2;
                 const lineBreak = document.createElement('hr');
-                main.append(lineBreak);
+                DOM.main.append(lineBreak);
             }
 
             // Today Block
@@ -74,13 +118,13 @@ export function renderMain(masterList, main, option, byProjectName = null) {
                 const todayHeading = document.createElement("div");
                 todayHeading.classList.add('heading');
                 todayHeading.textContent = 'Today';
-                main.append(todayHeading);
+                DOM.main.append(todayHeading);
             } 
 
             if (masterList.data[i].date >= tomorrow && todayGroup == 1) {
                 todayGroup = 2;
                 const lineBreak = document.createElement('hr');
-                main.append(lineBreak);
+                DOM.main.append(lineBreak);
             }
 
             if (masterList.data[i].date <= weekFromToday && masterList.data[i].date >= tomorrow && weekGroup == null) {
@@ -88,18 +132,19 @@ export function renderMain(masterList, main, option, byProjectName = null) {
                 const weekHeading = document.createElement("div");
                 weekHeading.classList.add('heading');
                 weekHeading.textContent = 'This Week';
-                main.append(weekHeading);
+                DOM.main.append(weekHeading);
             } 
 
             if (masterList.data[i].date > weekFromToday && weekGroup == 1) {
                 weekGroup = 2;
                 const lineBreak = document.createElement('hr');
-                main.append(lineBreak);
+                DOM.main.append(lineBreak);
             }; 
 
            
             if ((masterList.data[i].completed === false && masterList.data[i].date < today) || masterList.data[i].date >= today){
-                main.append(masterList.data[i].htmlFormat());
+                DOM.main.append(renderCard(masterList.data[i]));
+                masterList.displayedList.push(masterList.data[i]);
             }
         
            
