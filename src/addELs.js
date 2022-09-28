@@ -119,14 +119,15 @@ export function addSideProjectEventListeners(){
             console.log(tasksToRemove);
             for (const item of tasksToRemove){
                 masterList.removeTask(item);
-                renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
+                
+            }
+            renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
                 renderSideBar(DOM.body, masterList.getListOfProjects()); 
                 addSideProjectEventListeners();
                 addSideTimeEventListeners();
                 addMainEventListeners();
-
-            }
-          } else {
+          } 
+          else {
             console.log("You pressed Cancel!");
           }
     }
