@@ -19,16 +19,15 @@ To Do:
 
 //  ###########     Sample tasks to test the app     ########### 
 
-const sampleTask = new Task( '2022-09-23', 'Finish Odin Project', 'normal' );
-sampleTask.completed = true;
-const sampleTask2 = new Task( '2022-09-23', 'Practice Kung fu', 'high' );
-const sampleTask3 = new Task( '2022-09-26', 'Cook a pie', 'normal' );
-const sampleTask4 = new Task( '2022-09-26', 'Sleep', 'high' );
-const sampleTask5 = new Task( '2022-09-28', 'Learn Ruby', 'normal' );
+const sampleTask = new Task( '2022-09-23', 'Refactor tic-tac-toe program', 'normal' );
+const sampleTask2 = new Task( '2022-09-23', 'Buy milk', 'high' );
+const sampleTask3 = new Task( '2022-09-26', 'Buy birthday card', 'normal' );
+const sampleTask4 = new Task( '2022-09-26', 'Nap', 'high' ); 
+const sampleTask5 = new Task( '2022-09-28', 'Do Ruby beginner tutorial', 'normal' );
 const sampleTask6 = new Task( '2022-09-27', 'Code Tetris', 'high' );
-const sampleTask7 = new Task( '2022-10-01', 'Recycle', 'high' );
+const sampleTask7 = new Task( '2022-10-01', 'Buy toiletpaper', 'high' );
 const sampleTask8 = new Task( '2022-10-02', 'Swim', 'normal' );
-const sampleTask9 = new Task( '2022-10-23', 'Eat', 'high' );
+const sampleTask9 = new Task( '2022-10-23', 'Dog sit Kimmy', 'high' );
 
 masterList.addTask(sampleTask);
 masterList.addTask(sampleTask2);
