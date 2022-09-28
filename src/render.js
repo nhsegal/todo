@@ -270,9 +270,7 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     someDiv.append(addTaskModal);
 }
 
-export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
- 
-
+export function renderSideBar(someDiv, arrayOfProjectNames) {
     const sidebarSection = document.createElement("section");
     sidebarSection.id = 'sidebar';
     const listByTime = document.createElement('ul');
@@ -307,7 +305,6 @@ export function renderSideBar(someDiv, masterList, arrayOfProjectNames) {
 
     const listByProject = document.createElement('ul');
     listByProject.id = 'list-by-project';
-
     const makeLink = function(name, div) {
         const listItem = document.createElement('li');
         const itemAnchor = document.createElement('a');

@@ -32,9 +32,11 @@ export function addInitialEventListeners(){
         DOM.newTaskProject.value = null;
         
         renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
-        renderSideBar(DOM.body, masterList, masterList.getListOfProjects()); 
+        renderSideBar(DOM.body, masterList.getListOfProjects()); 
+        addSideProjectEventListeners();
+        addMainEventListeners();
     }
-    
+
     DOM.addTaskBtn.addEventListener("click", () => { DOM.addTaskModal.classList.toggle("closed") });
     DOM.closeModalButton.addEventListener("click", () => { DOM.addTaskModal.classList.toggle("closed") });
     DOM.addTaskForm.addEventListener("submit", taskSubmit);  
@@ -42,16 +44,23 @@ export function addInitialEventListeners(){
     //Today, Week, and All sideBar ELs
     try {
         DOM.todaysTasksSideBar.addEventListener("click", function(){ 
+      
             currentSettings.update('today', null);
-            renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject)});
+            renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+            addMainEventListeners();
+        });
          
         DOM.thisWeekSideBar.addEventListener("click", function(){
             currentSettings.update('this-week', null);
-            renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject)});
+            renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+            addMainEventListeners();
+        });
       
         DOM.allTasksSideBar.addEventListener("click", function(){
             currentSettings.update('all', null);
-            renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject)});
+            renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+            addMainEventListeners();
+        });
            
     }
     catch {
@@ -79,7 +88,11 @@ function addCardEventListeners(task){
         masterList.removeTask(thisTask[0]);
         masterList.displayedList.splice(masterList.displayedList.indexOf(thisTask[0]), 1);
         // reRender();
+        // reAttachEl();
+        renderSideBar(DOM.body, masterList.getListOfProjects());
         renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+        addSideProjectEventListeners();
+        addMainEventListeners();
     }
     
     const editBtn = document.querySelectorAll(`[data-id="${task.id}"] button`)[0];
@@ -99,14 +112,17 @@ export function addMainEventListeners(){
 export function addSideProjectEventListeners(){
     // SideBar Project Name ELs
     try {
-        console.log(DOM.sidebarProjectList.length);
+        console.log(DOM.sidebarProjectList);
         for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
             const projectLink = (DOM.sidebarProjectList[i][0]);
-            projectLink.addEventListener('click',  function() {
+            projectLink.addEventListener('click', function() {
+                console.log('ther')
                 currentSettings.update('byProject', projectLink.id);
-                renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
-            })
-        };
+                renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+                addMainEventListeners();
+            
+            });
+        }
     }
 
     catch {

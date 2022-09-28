@@ -48,7 +48,7 @@ masterList.editTask(sampleTask9, 'project', 'Health');
 //const main = document.querySelector("main");
 
 renderHeader(DOM.body);
-renderSideBar(DOM.body, masterList, masterList.getListOfProjects());
+renderSideBar(DOM.body, masterList.getListOfProjects());
 renderAddTaskModal(DOM.body, masterList.getListOfProjects());
 renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
 
