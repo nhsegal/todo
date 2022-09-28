@@ -9,11 +9,10 @@ import { currentSettings } from "./currentSettings";
 
 /*
 To Do: 
---after add task, do event listeners work?
 --remove projects
 --edit task
 --local storage
-
+--styling
 */
 
 
@@ -54,8 +53,7 @@ masterList.editTask(sampleTask9, 'project', 'Health');
 
 
 // Cache DOM and render each section
-//const body = document.querySelector("body");
-//const main = document.querySelector("main");
+
 
 renderHeader(DOM.body);
 renderSideBar(DOM.body, masterList.getListOfProjects());
@@ -66,6 +64,7 @@ renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
 addInitialEventListeners();
 addSideProjectEventListeners();
 addMainEventListeners();
+DOM.sidebarProjectListRemove;
 
 
 

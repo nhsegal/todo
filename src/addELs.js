@@ -113,24 +113,48 @@ export function addMainEventListeners(){
 
 
 export function addSideProjectEventListeners(){
+    const removeThis = function (e) {
+        if (confirm("Delete this project and all tasks in it?")) {
+            const tasksToRemove = masterList.produceProjectList(e.target.id.slice(0,-6))
+            console.log(tasksToRemove);
+            for (const item of tasksToRemove){
+                masterList.removeTask(item);
+                renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
+                renderSideBar(DOM.body, masterList.getListOfProjects()); 
+                addSideProjectEventListeners();
+                addSideTimeEventListeners();
+                addMainEventListeners();
+
+            }
+          } else {
+            console.log("You pressed Cancel!");
+          }
+    }
+
+    for (let i = 0; i < DOM.sidebarProjectListRemove.length; i++) {
+        DOM.sidebarProjectListRemove[i].addEventListener('click', removeThis);
+    }
     // SideBar Project Name ELs
     try {
-      for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
+        for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
             const projectLink = (DOM.sidebarProjectList[i]);
-            console.log(projectLink)
+     
             projectLink.addEventListener('click', function() {
                 console.log(projectLink)
                 currentSettings.update('byProject', projectLink.id);
                 renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
                 addMainEventListeners();
             });
-      }
+        }
+       
     }
 
     catch {
         console.log('failed to add el to projects')
     }
     //Remove project button ? 
+   
+    
 }
  
 export function addSideTimeEventListeners(){

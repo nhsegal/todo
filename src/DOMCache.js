@@ -60,11 +60,6 @@ function dom() {
         },
         get sidebarProjectList() {
             // I need the anchor tags nexted inside the li's
-            //console.log(document.querySelector("#sidebar").children[1].children)
-        
-           // console.log(document.querySelector("#sidebar"));
-           // console.log(document.querySelector("#sidebar").children[1]);
-           // console.log(document.querySelector("#sidebar").children[1].children);
             const listitems = Array.from(document.querySelector("#sidebar").children[1].children);
             let queryStr = '';
             for (let i = 0; i< listitems.length; i++){
@@ -80,6 +75,16 @@ function dom() {
             const nodeList = document.querySelectorAll(queryStr);
             return nodeList
         },
+        get sidebarProjectListRemove() {
+            const listitems = Array.from(document.querySelector("#sidebar").children[1].children);
+            const listOfRemoveBtns = [];
+            for (let i = 0; i< listitems.length; i++){
+                listOfRemoveBtns.push(listitems[i].lastChild);
+            }
+        
+            return listOfRemoveBtns
+
+        }
     }
  }
 
