@@ -19,15 +19,18 @@ export function addInitialEventListeners(){
                 DOM.newTaskPriorityValue = option.value;
             }
         }
+        console.log(DOM.newTaskProject.value);
         const newTask = new Task( DOM.newTaskDate.value, DOM.newTaskContent.value, DOM.newTaskPriorityValue, DOM.newTaskProject.value);
         masterList.addTask(newTask);
         masterList.sortByDate();
+        // Clear the modal input fields 
         DOM.newTaskContent.value = null;
         DOM.newTaskDate.value = null;
         for (const option of DOM.newTaskPriority) {
             newTaskPriorityValue = null;            
         }
         DOM.newTaskProject.value = null;
+        
         renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
         renderSideBar(DOM.body, masterList, masterList.getListOfProjects()); 
     }
@@ -65,7 +68,6 @@ export function addCardEventListeners(){
 }
 
 export function addSideProjectEventListeners(){
-   
     //Project Name
     try {
         console.log(DOM.sidebarProjectList.length);
