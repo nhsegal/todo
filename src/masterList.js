@@ -39,10 +39,10 @@ class MasterList {
     getListOfProjects() {
         const allProjects = [];
         this.data.forEach( (task)=> {
-            if (task.project != null && !allProjects.some((a)=> a===task.project)){
+            if (task.project != null &&  task.project != '' && !allProjects.some((a)=> a === task.project)){
                 allProjects.push(task.project);
             }
-        }  )
+        })
         return allProjects;
     }
 }

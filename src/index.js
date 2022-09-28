@@ -7,6 +7,16 @@ import { masterList } from "./masterList";
 import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 import { currentSettings } from "./currentSettings";
 
+/*
+To Do: 
+--after add task, do event listeners work?
+--remove projects
+--edit task
+--local storage
+
+*/
+
+
 
 //  ###########     Sample tasks to test the app     ########### 
 

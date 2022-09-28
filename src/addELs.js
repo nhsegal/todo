@@ -16,12 +16,13 @@ export function addInitialEventListeners(){
         let newTaskPriorityValue = null;
         for (const option of DOM.newTaskPriority) {
             if (option.checked) {
-                DOM.newTaskPriorityValue = option.value;
+                newTaskPriorityValue = option.value;
             }
         }
-   
-        const newTask = new Task( DOM.newTaskDate.value, DOM.newTaskContent.value, DOM.newTaskPriorityValue, DOM.newTaskProject.value);
+    
+        const newTask = new Task( DOM.newTaskDate.value, DOM.newTaskContent.value, newTaskPriorityValue, DOM.newTaskProject.value);
         masterList.addTask(newTask);
+        console.log( masterList.getListOfProjects());
         masterList.sortByDate();
         // Clear the modal input fields 
         DOM.newTaskContent.value = null;
@@ -34,6 +35,7 @@ export function addInitialEventListeners(){
         renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
         renderSideBar(DOM.body, masterList.getListOfProjects()); 
         addSideProjectEventListeners();
+        addSideTimeEventListeners();
         addMainEventListeners();
     }
 
@@ -44,7 +46,6 @@ export function addInitialEventListeners(){
     //Today, Week, and All sideBar ELs
     try {
         DOM.todaysTasksSideBar.addEventListener("click", function(){ 
-      
             currentSettings.update('today', null);
             renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
             addMainEventListeners();
@@ -76,13 +77,10 @@ function addCardEventListeners(task){
         let task = masterList.data.filter((e)=> e.id == taskID);
         if (this.checked) {
             task.completed = true;
-            console.log(e.target.parentElement)
             e.target.parentElement.classList.add("completed");
-            console.log(task);
         } else {
             task.completed = false;
             e.target.parentElement.classList.remove("completed");
-            console.log(e.target.getAttribute('data-id'));
         }
     });
 
@@ -117,15 +115,16 @@ export function addMainEventListeners(){
 export function addSideProjectEventListeners(){
     // SideBar Project Name ELs
     try {
-       for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
-           const projectLink = (DOM.sidebarProjectList[i][0]);
+      for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
+            const projectLink = (DOM.sidebarProjectList[i]);
+            console.log(projectLink)
             projectLink.addEventListener('click', function() {
-                console.log('there')
+                console.log(projectLink)
                 currentSettings.update('byProject', projectLink.id);
                 renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
                 addMainEventListeners();
             });
-       }
+      }
     }
 
     catch {
@@ -134,3 +133,28 @@ export function addSideProjectEventListeners(){
     //Remove project button ? 
 }
  
+export function addSideTimeEventListeners(){
+    try {
+        DOM.todaysTasksSideBar.addEventListener("click", function(){ 
+            currentSettings.update('today', null);
+            renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+            addMainEventListeners();
+        });
+         
+        DOM.thisWeekSideBar.addEventListener("click", function(){
+            currentSettings.update('this-week', null);
+            renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+            addMainEventListeners();
+        });
+      
+        DOM.allTasksSideBar.addEventListener("click", function(){
+            currentSettings.update('all', null);
+            renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+            addMainEventListeners();
+        });
+    }
+    catch {
+        console.log('failed to add today/week/all ELs')
+    }
+   
+}

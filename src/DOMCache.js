@@ -2,6 +2,7 @@
 const main = document.querySelector('main');
 const body = document.querySelector('body');
 
+
 function dom() {
     return {
         get header() {
@@ -54,16 +55,30 @@ function dom() {
         get cardCheckBoxs() {
             return document.querySelectorAll('[name="isCompletedCheckbox"]');
         },
+        get listByProject() {
+            return document.querySelector('#list-by-project');
+        },
         get sidebarProjectList() {
             // I need the anchor tags nexted inside the li's
-         
-            const listitems = this.sideBar.children[1].children;
-            const arrayOfProjectLinks = [];
+            //console.log(document.querySelector("#sidebar").children[1].children)
+        
+           // console.log(document.querySelector("#sidebar"));
+           // console.log(document.querySelector("#sidebar").children[1]);
+           // console.log(document.querySelector("#sidebar").children[1].children);
+            const listitems = Array.from(document.querySelector("#sidebar").children[1].children);
+            let queryStr = '';
             for (let i = 0; i< listitems.length; i++){
-                arrayOfProjectLinks.push(listitems[i].children);
+                queryStr = queryStr + '#' + listitems[i].firstChild.id 
+                if (i< listitems.length-1) {
+                    queryStr = queryStr + ', ';
+                }
             }
-            
-            return arrayOfProjectLinks
+            if (queryStr === ''){
+                console.log('null query')
+                queryStr = null;
+            }
+            const nodeList = document.querySelectorAll(queryStr);
+            return nodeList
         },
     }
  }

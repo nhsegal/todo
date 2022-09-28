@@ -1,7 +1,5 @@
 "use strict";
 
-//const main = document.querySelector('main');
-
 // Constructor to make task objects
 export class Task {
 

@@ -58,6 +58,13 @@ header {
     height: 90vh;
 }
 
+#sidebar li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: 1rem;
+}
+
 main {
     background: var(--main-bg-color);
     grid-area: 2 / 2 / 3 / 3;

@@ -25,13 +25,13 @@ function renderCard(task) {
     editBtn.classList.add('edit-task');
     editBtn.setAttribute('data-id', task.id);
     editBtn.textContent = 'edit';
-    //editBtn.addEventListener("click", editTask);
+ 
     
     const removeBtn = document.createElement("button");
     removeBtn.classList.add('remove-task');
     removeBtn.setAttribute('data-id', task.id);
     removeBtn.textContent = 'remove';
-    //removeBtn.addEventListener("click", removeTask);
+ 
     
     const card = document.createElement("div");
     card.classList.add('card');
@@ -270,7 +270,13 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     someDiv.append(addTaskModal);
 }
 
+
 export function renderSideBar(someDiv, arrayOfProjectNames) {
+    if (DOM.sideBar){
+    
+        DOM.sideBar.parentElement.removeChild(DOM.sideBar);
+        
+    }
     const sidebarSection = document.createElement("section");
     sidebarSection.id = 'sidebar';
     const listByTime = document.createElement('ul');
@@ -298,11 +304,6 @@ export function renderSideBar(someDiv, arrayOfProjectNames) {
 
     listByTime.append(listItem1, listItem2, listItem3);
 
-    if (document.querySelector("#list-by-project")) {
-        const deleteThis = document.querySelector("#list-by-project");
-        deleteThis.parentNode.removeChild(deleteThis);
-    }
-
     const listByProject = document.createElement('ul');
     listByProject.id = 'list-by-project';
     const makeLink = function(name, div) {
@@ -311,7 +312,11 @@ export function renderSideBar(someDiv, arrayOfProjectNames) {
         itemAnchor.id = name;
         itemAnchor.href = '#';
         itemAnchor.textContent = name;
-        listItem.append(itemAnchor);
+        const removeProjectBtn = document.createElement('a');
+        removeProjectBtn.id = `${name}Remove`;
+        removeProjectBtn.href = "#"
+        removeProjectBtn.textContent = '×';
+        listItem.append(itemAnchor,removeProjectBtn);
         div.append(listItem);
     }
     if (arrayOfProjectNames){
