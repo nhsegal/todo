@@ -19,7 +19,7 @@ export function addInitialEventListeners(){
                 DOM.newTaskPriorityValue = option.value;
             }
         }
-        console.log(DOM.newTaskProject.value);
+   
         const newTask = new Task( DOM.newTaskDate.value, DOM.newTaskContent.value, DOM.newTaskPriorityValue, DOM.newTaskProject.value);
         masterList.addTask(newTask);
         masterList.sortByDate();
@@ -71,11 +71,18 @@ export function addInitialEventListeners(){
 
 function addCardEventListeners(task){
     const checkbox = document.querySelectorAll(`[data-id="${task.id}"] input`);
-    checkbox[0].addEventListener('change', function() {
+    checkbox[0].addEventListener('change', function(e) {
+        let taskID = e.target.getAttribute('data-id')
+        let task = masterList.data.filter((e)=> e.id == taskID);
         if (this.checked) {
-            console.log("Checkbox is checked..");
+            task.completed = true;
+            console.log(e.target.parentElement)
+            e.target.parentElement.classList.add("completed");
+            console.log(task);
         } else {
-            console.log("Checkbox is not checked..");
+            task.completed = false;
+            e.target.parentElement.classList.remove("completed");
+            console.log(e.target.getAttribute('data-id'));
         }
     });
 
@@ -89,9 +96,7 @@ function addCardEventListeners(task){
         masterList.displayedList.splice(masterList.displayedList.indexOf(thisTask[0]), 1);
         // reRender();
         // reAttachEl();
-        renderSideBar(DOM.body, masterList.getListOfProjects());
         renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
-        addSideProjectEventListeners();
         addMainEventListeners();
     }
     
@@ -112,17 +117,15 @@ export function addMainEventListeners(){
 export function addSideProjectEventListeners(){
     // SideBar Project Name ELs
     try {
-        console.log(DOM.sidebarProjectList);
-        for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
-            const projectLink = (DOM.sidebarProjectList[i][0]);
+       for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
+           const projectLink = (DOM.sidebarProjectList[i][0]);
             projectLink.addEventListener('click', function() {
-                console.log('ther')
+                console.log('there')
                 currentSettings.update('byProject', projectLink.id);
                 renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
                 addMainEventListeners();
-            
             });
-        }
+       }
     }
 
     catch {

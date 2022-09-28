@@ -3,8 +3,8 @@
     --sidebar-color:  rgb(250, 250, 250);
     --header-color: rgb(240, 130, 90);
     --very-light-text: rgb(250, 250, 250);
-    --light-text: rgb(110, 110, 110);
-    --dark-text: rgb(30, 30, 30);
+    --light-text: rgb(140, 140, 140);
+    --dark-text: rgb(0, 0, 0);
 }
 
 body {
@@ -77,8 +77,12 @@ main {
     margin-left: 2rem;
     gap: 1rem;
     width: 30rem;
+    color: var(--dark-text);
 }
 
+.card.completed {
+    color: var(--light-text);
+}
 
 .task-due-date {
     margin-left: auto;

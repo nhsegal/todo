@@ -56,6 +56,7 @@ function dom() {
         },
         get sidebarProjectList() {
             // I need the anchor tags nexted inside the li's
+         
             const listitems = this.sideBar.children[1].children;
             const arrayOfProjectLinks = [];
             for (let i = 0; i< listitems.length; i++){
