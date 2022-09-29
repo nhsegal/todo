@@ -6,77 +6,30 @@ import { addMainEventListeners, addInitialEventListeners, addSideProjectEventLis
 import { masterList } from "./masterList";
 import { renderMain, renderAddTaskModal, renderSideBar, renderHeader } from "./render";
 import { currentSettings } from "./currentSettings";
+import freshStart from "./freshStart";
+import resume from "./resume";
 
-/*
-To Do: 
---local storage
---styling
-*/
+//  In resume.js 
+//  Need to take the returned thing by JSON and make a bunch of Task objects that are then added to masterlist.data
 
-
-
-//  ###########     Sample tasks to test the app     ########### 
-let today = new Date();
-today.setHours(0, 0, 0, 0);
-
-let tomorrow = new Date(today);
-tomorrow.setDate(today.getDate() + 1);
-let dayAfterTomorrow = new Date(today);
-dayAfterTomorrow.setDate(today.getDate() + 2);
-
-let laterDay = new Date(today);
-laterDay.setDate(today.getDate() + 8);
-
-let yesterday = new Date(today);
-yesterday.setDate(today.getDate() - 1);
-
-const sampleTask = new Task( today, 'Refactor tic-tac-toe program', 'normal' );
-const sampleTask2 = new Task( today, 'Buy milk', 'high' );
-const sampleTask3 = new Task( tomorrow, 'Buy birthday card', 'normal' );
-const sampleTask4 = new Task( tomorrow, 'Call mom', 'high' ); 
-const sampleTask5 = new Task( tomorrow, 'Do Ruby beginner tutorial', 'normal' );
-const sampleTask6 = new Task( dayAfterTomorrow, 'Vacuum', 'high' );
-const sampleTask7 = new Task( dayAfterTomorrow, 'Laundry', 'normal' );
-const sampleTask8 = new Task( dayAfterTomorrow, 'Practice piano', 'normal' );
-const sampleTask9 = new Task( today, 'Dog-sit for Kimmy', 'high' );
-const sampleTask10 = new Task( yesterday, 'Schedule dentist appointment', 'high' );
-
-masterList.addTask(sampleTask);
-masterList.addTask(sampleTask2);
-masterList.addTask(sampleTask3);
-masterList.addTask(sampleTask4);
-masterList.addTask(sampleTask5);
-masterList.addTask(sampleTask6);
-masterList.addTask(sampleTask7);
-masterList.addTask(sampleTask8);
-masterList.addTask(sampleTask9);
-masterList.addTask(sampleTask10);
-masterList.sortByDate();
+//function reviver(thing){
+//    new Task(this.)
+    
+    //return new Task( )
+//}
 
 
-masterList.editTask(sampleTask, 'project', 'Coding');
-masterList.editTask(sampleTask2, 'project', 'Shopping');
-masterList.editTask(sampleTask3, 'project', 'Shopping');
-masterList.editTask(sampleTask5, 'project', 'Coding');
-masterList.editTask(sampleTask6, 'project', 'Housework');
-masterList.editTask(sampleTask7, 'project', 'Housework');
-
-// ***************
-
-
-// Cache DOM and render each section
+if(!localStorage.getItem('oldData')) {
+    freshStart();
+    localStorage.setItem('instance', masterList);
+    localStorage.setItem('oldData', JSON.stringify(masterList.data));
+    localStorage.setItem('oldDisplayList', JSON.stringify(masterList.displayedList));
+} 
+else {
+   resume();
+}
 
 
-renderHeader(DOM.body);
-renderSideBar(DOM.body, masterList.getListOfProjects());
-renderAddTaskModal(DOM.body, masterList.getListOfProjects());
-renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
-
-// Add eventlisteners to header and modal
-addInitialEventListeners();
-addSideProjectEventListeners();
-addMainEventListeners();
-DOM.sidebarProjectListRemove;
 
 
 

@@ -24,7 +24,8 @@ export function addInitialEventListeners(){
             console.log(option.value)
             masterList.editTask(taskToEdit, "priority", option.value);
             masterList.editTask(taskToEdit, "project", DOM.newTaskProject.value);
-     
+            localStorage.setItem('oldData', JSON.stringify(masterList.data)); 
+            localStorage.setItem('oldDisplayList', JSON.stringify(masterList.displayedList));
         }
         else {
             let newTaskPriorityValue = null;
@@ -36,7 +37,8 @@ export function addInitialEventListeners(){
         
             const newTask = new Task( DOM.newTaskDate.value, DOM.newTaskContent.value, newTaskPriorityValue, DOM.newTaskProject.value);
             masterList.addTask(newTask);
-
+            localStorage.setItem('oldData', JSON.stringify(masterList.data)); 
+            localStorage.setItem('oldDisplayList', JSON.stringify(masterList.displayedList));
         }
      
      
@@ -111,7 +113,6 @@ function addCardEventListeners(task){
         let dd = taskToEdit.date.getDate();
         let taskDate = String(10000 * yyyy + 100 * mm + dd);
         taskDate = taskDate.slice(0,4)+'-'+taskDate.slice(4,6) + '-' +taskDate.slice(6,8);
-        console.log(taskDate)
         DOM.newTaskContent.value = taskToEdit.content;
         DOM.newTaskDate.value = taskDate;
         DOM.newTaskProject.value = taskToEdit.project;
@@ -121,20 +122,14 @@ function addCardEventListeners(task){
             }
         }
         DOM.addTaskModal.classList.toggle("closed");
-        
-
-
-
-
-
     }
 
     const removeTask = function(e) {
         const thisTask = masterList.data.filter( (t) => t.id == e.target.parentElement.getAttribute("data-id"));
         masterList.removeTask(thisTask[0]);
+        localStorage.setItem('oldData', JSON.stringify(masterList.data)); 
         masterList.displayedList.splice(masterList.displayedList.indexOf(thisTask[0]), 1);
-        // reRender();
-        // reAttachEl();
+        localStorage.setItem('oldDisplayList', JSON.stringify(masterList.displayedList));
         renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
         addMainEventListeners();
     }
@@ -156,12 +151,12 @@ export function addMainEventListeners(){
 export function addSideProjectEventListeners(){
     const removeThis = function (e) {
         if (confirm("Delete this project and all tasks in it?")) {
-            const tasksToRemove = masterList.produceProjectList(e.target.id.slice(0,-6))
-            console.log(tasksToRemove);
+            const tasksToRemove = masterList.produceProjectList(e.target.id.slice(0,-6));
             for (const item of tasksToRemove){
                 masterList.removeTask(item);
-                
             }
+            localStorage.setItem('oldData', JSON.stringify(masterList.data)); 
+            localStorage.setItem('oldDisplayList', JSON.stringify(masterList.displayedList));
             renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
                 renderSideBar(DOM.body, masterList.getListOfProjects()); 
                 addSideProjectEventListeners();
@@ -180,9 +175,7 @@ export function addSideProjectEventListeners(){
     try {
         for (let i = 0; i < DOM.sidebarProjectList.length; i++) {
             const projectLink = (DOM.sidebarProjectList[i]);
-     
             projectLink.addEventListener('click', function() {
-                console.log(projectLink)
                 currentSettings.update('byProject', projectLink.id);
                 renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
                 addMainEventListeners();
