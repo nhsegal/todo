@@ -6,6 +6,9 @@ import { Task } from "./tasks";
 import { currentSettings } from "./currentSettings";
 import { DOM } from "./DOMCache";
 
+let editting = false;
+let IDNumber = null;
+
 export function addInitialEventListeners(){ 
 //  *** AddTaskModal open, submit, and close btn ELs ***
 
@@ -13,22 +16,36 @@ export function addInitialEventListeners(){
     const taskSubmit = function(e) {
         e.preventDefault();
         DOM.addTaskModal.classList.toggle("closed");
-        let newTaskPriorityValue = null;
-        for (const option of DOM.newTaskPriority) {
-            if (option.checked) {
-                newTaskPriorityValue = option.value;
-            }
+        if (editting){
+            const taskToEdit = masterList.data.filter((t)=> t.id == IDNumber)[0];
+            masterList.editTask(taskToEdit, "content", DOM.newTaskContent.value);
+            masterList.editTask(taskToEdit, "date", new Date(DOM.newTaskDate.value));
+            let option = Array.from(DOM.newTaskPriority).filter(e => e['checked'])[0] ; 
+            console.log(option.value)
+            masterList.editTask(taskToEdit, "priority", option.value);
+            masterList.editTask(taskToEdit, "project", DOM.newTaskProject.value);
+     
         }
-    
-        const newTask = new Task( DOM.newTaskDate.value, DOM.newTaskContent.value, newTaskPriorityValue, DOM.newTaskProject.value);
-        masterList.addTask(newTask);
-        console.log( masterList.getListOfProjects());
+        else {
+            let newTaskPriorityValue = null;
+            for (const option of DOM.newTaskPriority) {
+                if (option.checked) {
+                    newTaskPriorityValue = option.value;
+                }
+            }
+        
+            const newTask = new Task( DOM.newTaskDate.value, DOM.newTaskContent.value, newTaskPriorityValue, DOM.newTaskProject.value);
+            masterList.addTask(newTask);
+
+        }
+     
+     
         masterList.sortByDate();
         // Clear the modal input fields 
         DOM.newTaskContent.value = null;
         DOM.newTaskDate.value = null;
         for (const option of DOM.newTaskPriority) {
-            newTaskPriorityValue = null;            
+            DOM.newTaskPriorityValue = null;            
         }
         DOM.newTaskProject.value = null;
         
@@ -39,7 +56,8 @@ export function addInitialEventListeners(){
         addMainEventListeners();
     }
 
-    DOM.addTaskBtn.addEventListener("click", () => { DOM.addTaskModal.classList.toggle("closed") });
+    DOM.addTaskBtn.addEventListener("click", () => {  editting = false;
+    DOM.addTaskModal.classList.toggle("closed") });
     DOM.closeModalButton.addEventListener("click", () => { DOM.addTaskModal.classList.toggle("closed") });
     DOM.addTaskForm.addEventListener("submit", taskSubmit);  
     
@@ -85,7 +103,30 @@ function addCardEventListeners(task){
     });
 
     const editTask = function(e) {
-        console.log(e.target.parentElement.getAttribute("data-id"));
+        editting = true;
+        IDNumber = e.target.parentElement.getAttribute("data-id");
+        const taskToEdit = masterList.data.filter((t)=> t.id == IDNumber)[0];
+        let yyyy = taskToEdit.date.getFullYear();
+        let mm = taskToEdit.date.getMonth()+1;
+        let dd = taskToEdit.date.getDate();
+        let taskDate = String(10000 * yyyy + 100 * mm + dd);
+        taskDate = taskDate.slice(0,4)+'-'+taskDate.slice(4,6) + '-' +taskDate.slice(6,8);
+        console.log(taskDate)
+        DOM.newTaskContent.value = taskToEdit.content;
+        DOM.newTaskDate.value = taskDate;
+        DOM.newTaskProject.value = taskToEdit.project;
+        for (const option of DOM.newTaskPriority) {
+            if (option.value === task.priority) {
+                option.checked = true;
+            }
+        }
+        DOM.addTaskModal.classList.toggle("closed");
+        
+
+
+
+
+
     }
 
     const removeTask = function(e) {

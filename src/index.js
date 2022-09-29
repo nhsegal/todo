@@ -9,8 +9,6 @@ import { currentSettings } from "./currentSettings";
 
 /*
 To Do: 
---remove projects
---edit task
 --local storage
 --styling
 */
@@ -18,16 +16,30 @@ To Do:
 
 
 //  ###########     Sample tasks to test the app     ########### 
+let today = new Date();
+today.setHours(0, 0, 0, 0);
 
-const sampleTask = new Task( '2022-09-23', 'Refactor tic-tac-toe program', 'normal' );
-const sampleTask2 = new Task( '2022-09-23', 'Buy milk', 'high' );
-const sampleTask3 = new Task( '2022-09-26', 'Buy birthday card', 'normal' );
-const sampleTask4 = new Task( '2022-09-26', 'Nap', 'high' ); 
-const sampleTask5 = new Task( '2022-09-28', 'Do Ruby beginner tutorial', 'normal' );
-const sampleTask6 = new Task( '2022-09-27', 'Code Tetris', 'high' );
-const sampleTask7 = new Task( '2022-10-01', 'Buy toiletpaper', 'high' );
-const sampleTask8 = new Task( '2022-10-02', 'Swim', 'normal' );
-const sampleTask9 = new Task( '2022-10-23', 'Dog sit Kimmy', 'high' );
+let tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+let dayAfterTomorrow = new Date(today);
+dayAfterTomorrow.setDate(today.getDate() + 2);
+
+let laterDay = new Date(today);
+laterDay.setDate(today.getDate() + 8);
+
+let yesterday = new Date(today);
+yesterday.setDate(today.getDate() - 1);
+
+const sampleTask = new Task( today, 'Refactor tic-tac-toe program', 'normal' );
+const sampleTask2 = new Task( today, 'Buy milk', 'high' );
+const sampleTask3 = new Task( tomorrow, 'Buy birthday card', 'normal' );
+const sampleTask4 = new Task( tomorrow, 'Call mom', 'high' ); 
+const sampleTask5 = new Task( tomorrow, 'Do Ruby beginner tutorial', 'normal' );
+const sampleTask6 = new Task( dayAfterTomorrow, 'Vacuum', 'high' );
+const sampleTask7 = new Task( dayAfterTomorrow, 'Laundry', 'normal' );
+const sampleTask8 = new Task( dayAfterTomorrow, 'Practice piano', 'normal' );
+const sampleTask9 = new Task( today, 'Dog-sit for Kimmy', 'high' );
+const sampleTask10 = new Task( yesterday, 'Schedule dentist appointment', 'high' );
 
 masterList.addTask(sampleTask);
 masterList.addTask(sampleTask2);
@@ -38,15 +50,16 @@ masterList.addTask(sampleTask6);
 masterList.addTask(sampleTask7);
 masterList.addTask(sampleTask8);
 masterList.addTask(sampleTask9);
+masterList.addTask(sampleTask10);
 masterList.sortByDate();
 
 
 masterList.editTask(sampleTask, 'project', 'Coding');
+masterList.editTask(sampleTask2, 'project', 'Shopping');
+masterList.editTask(sampleTask3, 'project', 'Shopping');
 masterList.editTask(sampleTask5, 'project', 'Coding');
-masterList.editTask(sampleTask6, 'project', 'Coding');
-masterList.editTask(sampleTask3, 'completed', 'true');
-masterList.editTask(sampleTask8, 'project', 'Health');
-masterList.editTask(sampleTask9, 'project', 'Health');
+masterList.editTask(sampleTask6, 'project', 'Housework');
+masterList.editTask(sampleTask7, 'project', 'Housework');
 
 // ***************
 
@@ -64,8 +77,6 @@ addInitialEventListeners();
 addSideProjectEventListeners();
 addMainEventListeners();
 DOM.sidebarProjectListRemove;
-
-
 
 
 
