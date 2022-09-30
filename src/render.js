@@ -165,15 +165,22 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     const taskForm = document.createElement("form");
     taskForm.id = 'task-form';
     
-    const emptyDiv = document.createElement("div");
+    const emptyDiv1 = document.createElement("div");
+    emptyDiv1.textContent = ' ';
+    const emptyDiv2 = document.createElement("div");
+    emptyDiv2.textContent = ' ';
     const closeModalButton = document.createElement("div");
     closeModalButton.id = 'close-modal-button';
 
     closeModalButton.innerHTML = '&times';
     
+    const emptyDiv3 = document.createElement("div");
+    emptyDiv3.textContent = ' ';
     const labelForTaskContent = document.createElement("label");
     labelForTaskContent.for = 'task-content';
     labelForTaskContent.textContent = 'Task:'
+
+    
     
     const taskContent = document.createElement("input");
     taskContent.type = 'text';
@@ -181,17 +188,25 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     taskContent.name = 'task-content';
     taskContent.placeholder = 'Enter Task';
     taskContent.required = true;
+    const emptyDiv4 = document.createElement("div");
+    emptyDiv4.textContent = ' ';
     
+ 
     const labelForDate= document.createElement("label");
     labelForDate.for = 'date';
     labelForDate.textContent = 'Due:';
+    const emptyDiv5 = document.createElement("div");
+    emptyDiv5.textContent = ' ';
 
+ 
     const date = document.createElement("input");
     date.type = 'date';
     date.id = 'date';
     date.name = 'date';
     date.required = true;
-
+    const emptyDiv6 = document.createElement("div");
+    emptyDiv6.textContent = ' ';
+    
     const priorityTitle = document.createElement("div");
     priorityTitle.textContent = 'Priority:';
 
@@ -221,6 +236,7 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     const highRadioLabel = document.createElement("label");
     highRadioLabel.for = "high";
     highRadioLabel.textContent = "High";
+   
 
     const assignToProjectLabel = document.createElement("label");
     assignToProjectLabel.for = "project";
@@ -231,6 +247,7 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     assignToProject.id = "project";
     assignToProject.placeholder = "Optional"
     assignToProject.setAttribute("list", "project-list");
+    
 
     const assignToProjectDataList = document.createElement("datalist");
     assignToProjectDataList.id = "project-list";
@@ -254,16 +271,24 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
     option2.append(highRadio, highRadioLabel);
     priorityOptions.append(option1, option2);
     taskForm.append(
-        emptyDiv, 
+        emptyDiv1, 
+        emptyDiv2,
         closeModalButton, 
         labelForTaskContent, 
         taskContent, 
+        emptyDiv3,
         labelForDate, 
         date, 
+        emptyDiv4,
+       
         priorityTitle, 
         priorityOptions, 
+        emptyDiv5,
+       
         assignToProjectLabel, 
         assignToProject,
+        emptyDiv6,
+       
         submitBtn);
     addTaskModalContent.append(taskForm);
     addTaskModal.append(addTaskModalContent);

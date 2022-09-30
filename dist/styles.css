@@ -1,6 +1,5 @@
 :root {
-    --main-bg-color: rgb(250, 250, 250);
-    --sidebar-color:  rgb(250, 250, 250);
+
     --very-light-text: rgb(250, 250, 250);
     --dark-text: rgb(0, 0, 0);
 }
@@ -44,8 +43,6 @@ header {
     transition: 0.2s ease-in-out all;
     border: 0.5px solid grey;
 }
-
-
 
 #add-a-task:hover{
    transform: scale(1.05);
@@ -94,7 +91,7 @@ header {
  }
 
 main {
-    background: var(--main-bg-color);
+    background: white;
     grid-area: 2 / 2 / 3 / 3;
     display: flex;
     flex-direction: column;
@@ -112,7 +109,6 @@ main {
     margin-left: 2rem;
     margin-right: 2rem;
     gap: 1rem;
-    
     color: var(--dark-text);
     transition: 0.2s ease-in-out all;
 }
@@ -167,21 +163,21 @@ hr {
     position: absolute;
     top: 20%;
     left: 43%;
-    background-color: var(--main-bg-color);
-    padding: .5rem .5rem 0.5rem 0.5rem;
-    border-radius: 0.5rem;
-   
+    background-color: white;
+    padding: .1rem 0.5rem 0.5rem 0.5rem;
+    border-radius: 0.5rem;   
 }
 
 #task-form {
     text-align: right;
     gap: 9px;
     display: grid;
-    grid-template-columns: 6rem 18rem;
+    grid-template-columns: 6rem 17rem 1rem;
     grid-template-rows: 1.7rem 1.7rem 1.7rem 1.7rem 1.7rem 1.7rem;
     align-items: baseline;
 }
 
+/*
 #task-form input{
     margin-right: 2rem;
 }
@@ -189,6 +185,7 @@ hr {
 #task-form input[type = "radio"] {
     margin-right: .5rem;
 }
+*/
 
 #priority-options {
     text-align: center;
@@ -202,10 +199,24 @@ hr {
     grid-column: 1 / 3;
     width: 7rem;
     justify-self: center;
+    grid-row: 6;
+    grid-column: 1 / span 3;
 }
 
-
 #close-modal-button {
+    display: inline-flex;
     font-size: 2rem;
     align-self: center;
+    grid-row: 1;
+    grid-column: 3;
+    width: 1rem;
+    border-radius: 2rem;
+    height: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+#close-modal-button:hover{
+    cursor: default;
+    background: rgb(200,200,200);
 }
