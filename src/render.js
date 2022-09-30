@@ -23,14 +23,16 @@ function renderCard(task) {
     
     const editBtn = document.createElement("button");
     editBtn.classList.add('edit-task');
+    editBtn.classList.add('material-icons');
     editBtn.setAttribute('data-id', task.id);
     editBtn.textContent = 'edit';
  
     
     const removeBtn = document.createElement("button");
     removeBtn.classList.add('remove-task');
+    removeBtn.classList.add('material-icons');
     removeBtn.setAttribute('data-id', task.id);
-    removeBtn.textContent = 'remove';
+    removeBtn.textContent = 'delete';
  
     
     const card = document.createElement("div");
@@ -307,24 +309,37 @@ export function renderSideBar(someDiv, arrayOfProjectNames) {
     const listByTime = document.createElement('ul');
     const listItem1 = document.createElement('li');
     const item1Anchor = document.createElement('a');
+
+    const todayIcon = document.createElement('i');
+    todayIcon.classList.add('material-icons');
+    todayIcon.textContent = 'today';
+
     item1Anchor.id = 'todays-tasks';
     item1Anchor.href = '#';
     item1Anchor.textContent = "Today";
-
+    item1Anchor.prepend(todayIcon);
     listItem1.append(item1Anchor);
 
+    const weekIcon = document.createElement('i');
+    weekIcon.classList.add('material-icons');
+    weekIcon.textContent = 'date_range';
     const listItem2 = document.createElement('li');
     const item2Anchor = document.createElement('a');
     item2Anchor.id = 'this-week';
     item2Anchor.href = '#';
     item2Anchor.textContent = "This Week";
+    item2Anchor.prepend(weekIcon);
     listItem2.append(item2Anchor);
     
+    const monthIcon = document.createElement('i');
+    monthIcon.classList.add('material-icons');
+    monthIcon.textContent = 'calendar_month';
     const listItem3 = document.createElement('li');
     const item3Anchor = document.createElement('a');
     item3Anchor.id = 'all-tasks';
     item3Anchor.href = '#';
     item3Anchor.textContent = "All";
+    item3Anchor.prepend(monthIcon);
     listItem3.append(item3Anchor);
 
     listByTime.append(listItem1, listItem2, listItem3);
@@ -342,10 +357,6 @@ export function renderSideBar(someDiv, arrayOfProjectNames) {
         removeProjectBtn.href = "#"
         removeProjectBtn.classList.add('material-icons')
         removeProjectBtn.textContent = 'delete';
-        
-       //const removeProjectIcon = document.createElement('i');
-       // removeProjectIcon.classList.add('material-icons');
-        //removeProjectIcon.innerHTML = 'delete';
         listItem.append(itemAnchor,removeProjectBtn);
         div.append(listItem);
     }

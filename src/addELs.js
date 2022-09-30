@@ -60,7 +60,15 @@ export function addInitialEventListeners(){
 
     DOM.addTaskBtn.addEventListener("click", () => {  editting = false;
     DOM.addTaskModal.classList.toggle("closed") });
-    DOM.closeModalButton.addEventListener("click", () => { DOM.addTaskModal.classList.toggle("closed") });
+    DOM.closeModalButton.addEventListener("click", () => { 
+        DOM.addTaskModal.classList.toggle("closed");
+        DOM.newTaskContent.value = null;
+        DOM.newTaskDate.value = null;
+        for (const option of DOM.newTaskPriority) {
+            DOM.newTaskPriorityValue = null;            
+        }
+        DOM.newTaskProject.value = null;
+    });
     DOM.addTaskForm.addEventListener("submit", taskSubmit);  
     
     //Today, Week, and All sideBar ELs
