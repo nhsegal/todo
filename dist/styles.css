@@ -83,7 +83,7 @@ header {
 
 #sidebar li:hover {
     color: black !important;
-  }
+}
 
 #sidebar #list-by-project>li{
     font-size: 1.0rem;
@@ -101,8 +101,8 @@ header {
     padding: 0.2rem 0.8rem;
   }
 
- #sidebar a:nth-child(1):hover {
-    outline: 1px solid black;
+ #sidebar a:nth-child(1):hover .material-icons{
+    
     color: black !important;
   }
 
@@ -149,6 +149,7 @@ main {
     gap: 1rem;
     color: black;
     transition: 0.2s ease-in-out;
+    align-items: center;
 }
 
 .card:hover {
@@ -181,7 +182,7 @@ hr {
 .subheading {
     font-size: 1.3rem;
     padding-left: 2rem;
-    color: var(--light-text);
+    color: rgb(110,100,100);
 }
 
 .modal {
