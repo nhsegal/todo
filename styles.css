@@ -13,6 +13,10 @@ body ul {
 
 body a, body a:visited {
     text-decoration: none;
+    color: rgb(110,100,100);
+}
+
+body a:hover {
     color: black;
 }
 
@@ -52,7 +56,6 @@ header {
 
 #sidebar {
     background: var(--sidebar-color);
-    color: black;
     grid-area: 2 / 1 / 3 / 2;
     padding-top: 1em;
     padding-right: 1rem;    
@@ -69,21 +72,30 @@ header {
 #sidebar li {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 5px;
     border-radius: 20px;
     padding: 0.2rem 1rem;
     margin: 0rem;
     width: 10rem;
-    
+    color: rgb(110,100,100);
 }
+
+#sidebar li:hover {
+    color: black !important;
+  }
 
 #sidebar #list-by-project>li{
     font-size: 1.0rem;
 }
 
+#sidebar .material-icons{
+    vertical-align: bottom;
+}
+
 
  #sidebar a:nth-child(1) {
-    width: 6rem;
+    width: 8rem;
     border-radius: 1rem;
     background-color: white;
     padding: 0.2rem 0.8rem;
@@ -91,7 +103,9 @@ header {
 
  #sidebar a:nth-child(1):hover {
     outline: 1px solid black;
+    color: black !important;
   }
+
   #sidebar a:nth-child(1):active {
     background: rgb(200,200,200);
   }
@@ -99,16 +113,18 @@ header {
 
  #sidebar a:nth-child(2) {
     font-size: 20px;
-    color: rgb(110,110,110);
   }
 
-  #sidebar a:nth-child(2):hover {
-    color: black;
-  }
+ 
 
-  #sidebar a:nth-child(2):active {
+
+#sidebar a:nth-child(2):active {
     color: red;
-  }
+}
+
+.material-icons{
+    color: rgb(110,100,100);
+}
 
 
 
