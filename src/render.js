@@ -340,7 +340,12 @@ export function renderSideBar(someDiv, arrayOfProjectNames) {
         const removeProjectBtn = document.createElement('a');
         removeProjectBtn.id = `${name}Remove`;
         removeProjectBtn.href = "#"
-        removeProjectBtn.textContent = '×';
+        removeProjectBtn.classList.add('material-icons')
+        removeProjectBtn.textContent = 'delete';
+        
+       //const removeProjectIcon = document.createElement('i');
+       // removeProjectIcon.classList.add('material-icons');
+        //removeProjectIcon.innerHTML = 'delete';
         listItem.append(itemAnchor,removeProjectBtn);
         div.append(listItem);
     }
