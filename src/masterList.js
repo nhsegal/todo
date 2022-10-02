@@ -25,7 +25,6 @@ class MasterList {
   }
 
   sortByDate() {
-    console.log('sorting');
     this.data
       .sort((a, b) => {
         const byDate = a.date - b.date;
