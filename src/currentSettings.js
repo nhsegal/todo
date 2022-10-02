@@ -1,12 +1,10 @@
-'use strict'
+const currentSettings = {
+  viewBy: 'all',
+  whichProject: null,
 
-export const currentSettings = {
-    viewBy: 'all',
-    whichProject: null,
-
-    update: function(newView, whichP = null) {
-        this.viewBy = newView;
-        this.whichProject = whichP;
-    }
-
-}
+  update(newView, whichP = null) {
+    this.viewBy = newView;
+    this.whichProject = whichP;
+  },
+};
+export default currentSettings;

@@ -157,7 +157,7 @@ main {
 
    
 }
-.card.completed {
+.card.is-completed {
     color: rgb(140, 140, 140);
 }
 

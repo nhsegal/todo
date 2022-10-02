@@ -1,22 +1,15 @@
-"use strict";
-
 // Constructor to make task objects
-export class Task {
+export default class Task {
+  constructor(date, content, priority, project = null) {
+    this.date = new Date(date);
+    this.content = content;
+    this.isCompleted = false;
+    this.priority = priority;
+    this.project = project;
+    this.id = Math.floor(Math.random() * 100000000);
+  }
 
-    constructor(date, content, priority, project = null) { 
-        this.date = new Date(date);
-        this.content = content;
-        this.completed = false;
-        this.priority = priority;
-        this.project = project;
-        this.id = Math.floor(Math.random()*100000000);
-    }
-
-    markDone() {
-        this.completed = true;
-    }
-
-};
-
-
-
+  markDone() {
+    this.isCompleted = true;
+  }
+}
