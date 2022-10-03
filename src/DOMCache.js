@@ -69,7 +69,7 @@ function dom() {
         }
       });
       if (queryStr === '') {
-        console.log('no projects?);
+        console.log('no projects?');
         queryStr = null;
       }
       const nodeList = document.querySelectorAll(queryStr);
@@ -79,8 +79,8 @@ function dom() {
     get sidebarProjectListRemove() {
       const listitems = Array.from(document.querySelector('#sidebar').children[1].children);
       const listOfRemoveBtns = [];
-      for (let i = 0; i < listitems.length; 
-        ) {
+      for (let i = 0; i < listitems.length;
+      ) {
         listOfRemoveBtns.push(listitems[i].lastChild);
       }
       return listOfRemoveBtns;
