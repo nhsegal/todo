@@ -1,7 +1,6 @@
-const main = document.querySelector('main');
-const body = document.querySelector('body');
-
 function dom() {
+  const main = document.querySelector('main');
+  const body = document.querySelector('body');
   return {
     get header() {
       return document.querySelector('header');
@@ -59,6 +58,7 @@ function dom() {
       return document.querySelector('#list-by-project');
     },
     get sidebarProjectList() {
+<<<<<<< HEAD
       // I need the anchor tags nexted inside the li's
       const listitems = Array.from(document.querySelector('#sidebar').children[1].children);
       let queryStr = '';
@@ -71,19 +71,31 @@ function dom() {
       if (queryStr === '') {
         console.log('no projects?');
         queryStr = null;
+=======
+      const nodeListOfProjectLinks = document.getElementById('list-by-project').children;
+      const arr = [];
+      for (const child of nodeListOfProjectLinks) {
+        arr.push(child.firstChild);
+>>>>>>> experimental
       }
-      const nodeList = document.querySelectorAll(queryStr);
-      const arrayOfProjectNames = [...nodeList];
-      return arrayOfProjectNames;
+      return arr;
     },
+<<<<<<< HEAD
     get sidebarProjectListRemove() {
       const listitems = Array.from(document.querySelector('#sidebar').children[1].children);
       const listOfRemoveBtns = [];
       for (let i = 0; i < listitems.length;
       ) {
         listOfRemoveBtns.push(listitems[i].lastChild);
+=======
+    get sidebarProjectListRemoveBtns() {
+      const nodeListOfProjectLinks = document.getElementById('list-by-project').children;
+      const arr = [];
+      for (const child of nodeListOfProjectLinks) {
+        arr.push(child.lastChild);
+>>>>>>> experimental
       }
-      return listOfRemoveBtns;
+      return arr;
     },
   };
 }

@@ -92,30 +92,44 @@ export function addSideTimeEventListeners() {
 export function addSideProjectEventListeners() {
   const removeThis = function (e) {
     if (confirm('Delete this project and all tasks in it?')) {
-      const tasksToRemove = masterList.produceProjectList(e.target.id.slice(0, -6));
+      const tasksToRemove = masterList.produceProjectList(e.target.previousElementSibling.id);
       tasksToRemove.forEach((item) => masterList.removeTask(item));
       localStorage.setItem('oldData', JSON.stringify(masterList.data));
       localStorage.setItem('oldDisplayList', JSON.stringify(masterList.displayedList));
       renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
-      renderSideBar(DOM.body, masterList.getListOfProjects());
+      console.log(masterList.getListOfProjects());
+      renderSideBar(masterList.getListOfProjects());
       addSideProjectEventListeners();
-      addSideTimeEventListeners();
       addMainEventListeners();
+      console.log(masterList.getListOfProjects());
     } else {
       console.log('You pressed Cancel!');
     }
   };
-  for (const item of DOM.sidebarProjectListRemove) {
-    item.addEventListener('click', removeThis);
-  }
+
   // SideBar Project Name ELs
   try {
+    // eslint-disable-next-line no-restricted-syntax
     for (const item of DOM.sidebarProjectList) {
       const projectLink = item;
       projectLink.addEventListener('click', () => {
         currentSettings.update('byProject', projectLink.id);
         renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
         addMainEventListeners();
+      });
+    }
+    // eslint-disable-next-line no-restricted-syntax
+    for (const item of DOM.sidebarProjectListRemoveBtns) {
+      const projectLinkRm = item;
+      projectLinkRm.addEventListener('click', (e) => {
+        if (currentSettings.viewBy === 'byProject' && currentSettings.whichProject === projectLinkRm.previousElementSibling.id) {
+          currentSettings.update('all');
+        }
+        removeThis(e);
+        renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
+        addMainEventListeners();
+        renderSideBar(masterList.getListOfProjects());
+        addSideProjectEventListeners();
       });
     }
   } catch {
@@ -161,12 +175,13 @@ export function addInitialEventListeners() {
     // Clear the modal input fields when modal is submitted
     DOM.newTaskContent.value = null;
     DOM.newTaskDate.value = null;
+    // eslint-disable-next-line no-restricted-syntax
     for (const option of DOM.newTaskPriority) {
-      DOM.newTaskPriorityValue = null;
+      option.value = null;
     }
     DOM.newTaskProject.value = null;
     renderMain(masterList, DOM.main, currentSettings.viewBy, currentSettings.whichProject);
-    renderSideBar(DOM.body, masterList.getListOfProjects());
+    renderSideBar(masterList.getListOfProjects());
     addSideProjectEventListeners();
     addSideTimeEventListeners();
     addMainEventListeners();
@@ -182,8 +197,9 @@ export function addInitialEventListeners() {
     DOM.addTaskModal.classList.toggle('closed');
     DOM.newTaskContent.value = null;
     DOM.newTaskDate.value = null;
+    // eslint-disable-next-line no-restricted-syntax
     for (const option of DOM.newTaskPriority) {
-      DOM.newTaskPriorityValue = null;
+      option.value = null;
     }
     DOM.newTaskProject.value = null;
   });

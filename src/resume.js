@@ -6,7 +6,6 @@ import {
   renderMain,
   renderAddTaskModal,
   renderSideBar,
-  renderHeader,
 } from './render';
 import currentSettings from './currentSettings';
 
@@ -23,8 +22,7 @@ function myFunction(dataFromServer) {
 export default function resume() {
   const oldJSON = localStorage.getItem('oldData');
   myFunction(oldJSON);
-  renderHeader(DOM.body);
-  renderSideBar(DOM.body, masterList.getListOfProjects());
+  renderSideBar(masterList.getListOfProjects());
   renderAddTaskModal(DOM.body, masterList.getListOfProjects());
   renderMain(masterList, currentSettings.viewBy, currentSettings.whichProject);
 
