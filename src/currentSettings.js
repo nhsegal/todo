@@ -7,4 +7,5 @@ const currentSettings = {
     this.whichProject = whichP;
   },
 };
+
 export default currentSettings;

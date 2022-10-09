@@ -1,4 +1,5 @@
 import DOM from './DOMCache';
+import masterList from './masterList';
 
 function renderCard(task) {
   const checkbox = document.createElement('input');
@@ -290,53 +291,17 @@ export function renderAddTaskModal(someDiv, arrayOfProjectNames) {
   someDiv.append(addTaskModal);
 }
 
-export function renderSideBar(someDiv, arrayOfProjectNames) {
-  if (DOM.sideBar) {
-    DOM.sideBar.parentElement.removeChild(DOM.sideBar);
+export function renderSideBar(arrayOfProjectNames) {
+  console.log(arrayOfProjectNames);
+  //  Changed to only render the by-project list
+  //  The rest is in index.html
+
+  // Remove the existingProjects
+  while (DOM.sidebarProjectList.length) {
+    DOM.listByProject.removeChild(DOM.listByProject.lastChild);
   }
-  const sidebarSection = document.createElement('section');
-  sidebarSection.id = 'sidebar';
-  const listByTime = document.createElement('ul');
-  const listItem1 = document.createElement('li');
-  const item1Anchor = document.createElement('a');
 
-  const todayIcon = document.createElement('i');
-  todayIcon.classList.add('material-icons');
-  todayIcon.textContent = 'today';
-
-  item1Anchor.id = 'todays-tasks';
-  item1Anchor.href = '#';
-  item1Anchor.textContent = 'Today';
-  item1Anchor.prepend(todayIcon);
-  listItem1.append(item1Anchor);
-
-  const weekIcon = document.createElement('i');
-  weekIcon.classList.add('material-icons');
-  weekIcon.textContent = 'date_range';
-  const listItem2 = document.createElement('li');
-  const item2Anchor = document.createElement('a');
-  item2Anchor.id = 'this-week';
-  item2Anchor.href = '#';
-  item2Anchor.textContent = 'This Week';
-  item2Anchor.prepend(weekIcon);
-  listItem2.append(item2Anchor);
-
-  const monthIcon = document.createElement('i');
-  monthIcon.classList.add('material-icons');
-  monthIcon.textContent = 'calendar_month';
-  const listItem3 = document.createElement('li');
-  const item3Anchor = document.createElement('a');
-  item3Anchor.id = 'all-tasks';
-  item3Anchor.href = '#';
-  item3Anchor.textContent = 'All';
-  item3Anchor.prepend(monthIcon);
-  listItem3.append(item3Anchor);
-
-  listByTime.append(listItem1, listItem2, listItem3);
-
-  const listByProject = document.createElement('ul');
-  listByProject.id = 'list-by-project';
-  const makeLink = function (name, div) {
+  const makeLink = function (name) {
     const listItem = document.createElement('li');
     const itemAnchor = document.createElement('a');
     itemAnchor.id = name;
@@ -348,20 +313,10 @@ export function renderSideBar(someDiv, arrayOfProjectNames) {
     removeProjectBtn.classList.add('material-icons');
     removeProjectBtn.textContent = 'delete';
     listItem.append(itemAnchor, removeProjectBtn);
-    div.append(listItem);
+    DOM.listByProject.append(listItem);
   };
-  if (arrayOfProjectNames) {
-    arrayOfProjectNames.forEach((a) => { makeLink(a, listByProject); });
-  }
-  sidebarSection.append(listByTime, listByProject);
-  someDiv.append(sidebarSection);
-}
 
-export function renderHeader(someDiv) {
-  const header = document.createElement('header');
-  const addTaskBtn = document.createElement('button');
-  addTaskBtn.id = 'add-a-task';
-  addTaskBtn.textContent = 'Add Task';
-  header.append(addTaskBtn);
-  someDiv.prepend(header);
+  if (arrayOfProjectNames) {
+    arrayOfProjectNames.forEach((a) => { makeLink(a); });
+  }
 }
