@@ -46,11 +46,9 @@ header {
 
 #add-a-task:hover{
     box-shadow: 7px 4px 7px rgb(10,10,10);
-   /*transform: scale(1.05);*/
 }
 
 #add-a-task:active{
-
     box-shadow: 2px 1px 3px rgb(10,10,10);
 }
 
@@ -106,17 +104,13 @@ header {
     color: black !important;
   }
 
-  #sidebar a:nth-child(1):active {
+#sidebar a:nth-child(1):active {
     background: rgb(200,200,200);
-  }
-
+}
 
  #sidebar a:nth-child(2) {
     font-size: 20px;
-  }
-
- 
-
+}
 
 #sidebar a:nth-child(2):active {
     color: red;
@@ -125,8 +119,6 @@ header {
 .material-icons{
     color: rgb(110,100,100);
 }
-
-
 
 main {
     background: white;
