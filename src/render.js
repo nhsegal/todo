@@ -7,6 +7,7 @@ function renderCard(task) {
   checkbox.name = 'isCompletedCheckbox';
   checkbox.setAttribute('data-id', task.id);
   checkbox.checked = task.isCompleted;
+
   checkbox.id = task.content;
 
   const taskName = document.createElement('div');
@@ -40,6 +41,11 @@ function renderCard(task) {
     card.classList.add('important');
   }
   card.append(checkbox, taskName, taskDue, editBtn, removeBtn);
+  if (checkbox.checked) {
+    checkbox.parentElement.classList.add('is-completed');
+  } else if (checkbox.parentElement.classList.contains('is-completed')) {
+    checkbox.parentElement.classList.remove('is-completed');
+  }
   return (card);
 }
 

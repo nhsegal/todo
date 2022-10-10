@@ -21,7 +21,13 @@ class MasterList {
   }
 
   editTask(task, attribute, value) {
-    this.data[this.data.indexOf(task)][attribute] = value;
+    console.log(task[0].id);
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].id == task[0].id) {
+        this.data[i][attribute] = value;
+        return;
+      }
+    }
   }
 
   sortByDate() {

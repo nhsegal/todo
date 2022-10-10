@@ -11,10 +11,14 @@ function addCardEventListeners(task) {
   const checkbox = document.querySelectorAll(`[data-id="${task.id}"] input`);
   checkbox[0].addEventListener('change', function (box) {
     const taskID = box.target.getAttribute('data-id');
-    const retrievedTask = masterList.data.filter((entry) => entry.id === taskID);
+    const retrievedTask = masterList.data.filter((entry) => entry.id === parseInt(taskID, 10));
     if (this.checked) {
+      console.log(masterList.data);
+
       retrievedTask.isCompleted = true;
       box.target.parentElement.classList.add('is-completed');
+      masterList.editTask(retrievedTask, 'isCompleted', true);
+      console.log(masterList.data);
     } else {
       retrievedTask.isCompleted = false;
       box.target.parentElement.classList.remove('is-completed');
